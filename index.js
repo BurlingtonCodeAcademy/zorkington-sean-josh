@@ -21,6 +21,7 @@ let player = {
   name: "",
   location: [],
   hasSpokenTo: [],
+  hasMoved: [],
   examine() {},
   move() {},
   speak() {},
@@ -30,7 +31,7 @@ let player = {
   go() {},
   lookAround() {},
   lookCloser() {},
-  solve() {}
+  solve() {},
 };
 
 let characterFactory = (name, location, inventory) => {
@@ -54,13 +55,23 @@ let white = characterFactory("Mrs. White", "Study");
 
 let cook = characterFactory("The Cook", "Kitchen");
 
-const diningMessage = 'You enter the dining room to find Miss Scarlet sobbing and the cook with his arm around her trying to console her.'
+
+let roomFactory = (name, ...args) => {
+  inventoryArr = [args]
+  return {name, inventoryArr}
+};
+
+let kitchen = roomFactory("The Kitchen", "Pans", "Body", "Knife");
+
+
+
+const diningMessage =
+  "You enter the dining room to find Miss Scarlet sobbing and the cook with his arm around her trying to console her.";
 
 green.dialogOne =
   "\nWe were all enjoying some good after dinner conversation when the power in the house went out and then the lights came back on we heard a scream from the kitchen. When we all rushed in we discovered Mr. Body dead on the floor. Miss Scarlet was the first one to discover the body. She's pretty broken up about it. My cook is currently in the dining room with her consoling her. Maybe you should go speak to her.\n";
 
 cook.dialogOne = "\nHello inspector. What a horrible thing that has happened.";
-
 
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,6 +79,7 @@ cook.dialogOne = "\nHello inspector. What a horrible thing that has happened.";
 async function start() {
   const welcomeMessage = `Welcome to our Murder Mystery! You are an inspector tasked with solving a murder that occured at a dinner party. You the actions you may need to take are: (examine), (move), (speak), (take), (drop), (use), (go), (look around), (look closer) and (solve).\n`;
 
+  console.log(kitchen);
   console.log(welcomeMessage);
   let getName = await ask(`What is your name, Inspector? >_`);
   player.name = getName;
@@ -81,26 +93,24 @@ async function start() {
     player.location = "Kitchen";
 
     const arrivalMessage = `\nYou arrive in the kitchen of Mr. Green's mansion to find the body of Mr. Body.`;
-  
+
     console.log(arrivalMessage);
-    playMain();
+    playKitchen();
   }
 }
 
-
-async function playMain() {
- 
+async function playKitchen() {
   let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
 
-  if (inputArr.includes("examine") && (inputArr.includes("body"))) {
-    console.log(body.desc)
-    playMain();
-  }
+  if (inputArr.includes("examine") && inputArr.includes("body")) {
+    console.log(body.desc);
+    playKitchen();
+  } 
   else if (inputArr.includes("move") && inputArr.includes("body")) {
     console.log(body.extraDesc);
-    playMain();
-  }
+    playKitchen();
+  } 
   else if (inputArr.includes("speak") && inputArr.includes("green")) {
     console.log(green.dialogOne);
 
@@ -108,145 +118,134 @@ async function playMain() {
       player.hasSpokenTo.push("green");
       console.log(player.hasSpokenTo);
     }
-    playMain();
-  }
+    playKitchen();
+  } 
   else if (inputArr.includes("go") && inputArr.includes("dining")) {
-    console.log(diningMessage)
+    player.location = "The Dining Room";
+    console.log(diningMessage);
     playDining();
   } 
-
-  else if (inputArr.includes("take")) {
-    
-  }
-
+  else if (inputArr.includes("go") && inputArr.includes("conservatory")) {
+    player.location = "The Conservatory";
+    console.log(conservatoryMessage);
+    playConservatory();
+  } 
+  else if (inputArr.includes("go") && inputArr.includes("library")) {
+    player.location = "The Library";
+    console.log(libraryMessage);
+    playLibrary();
+  } 
+  else if (inputArr.includes("go") && inputArr.includes("Study")) {
+    player.location = "The Study";
+    console.log(studyMessage);
+    playStudy();
+  } 
+  else if (
+    inputArr.includes("take") &&
+    (inputArr.includes("notepad") || inputArr.includes("note pad"))
+  ) {
+    player.inventory.push("Mr. Body's note pad");
+    playKitchen();
+  } 
   else if (inputArr.includes("drop")) {
 
-  }
-
+  } 
   else if (inputArr.includes("use")) {
 
-  }
-
+  } 
   else if (inputArr.includes("look around")) {
-    
-  }
-
+    console.log(kitchen.desc);
+    playKitchen();
+  } 
   else if (inputArr.includes("look closer")) {
-    
-  }
 
+  } 
   else if (inputArr.includes("solve")) {
-    
-  }
-  
+
+  } 
   else {
-    console.log(`I don't understand what you want and/or you can't do that in this room...`)
-    playMain();
+    console.log(
+      `I don't understand what you want and/or you can't do that in this room...`
+    );
+    playKitchen();
   }
 }
 
 async function playDining() {
-  
   let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
 
-  if (inputArr.includes("speak") && (inputArr.includes("cook"))) {
+  if (inputArr.includes("speak") && inputArr.includes("cook")) {
     player.hasSpokenTo.push("cook");
     console.log(player.hasSpokenTo);
     console.log(cook.dialogOne);
     playDining();
   }
-
 }
 
 async function playLounge() {
-  
   let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("")) {
-    
   }
-
 }
 
 async function playConservatory() {
-  
   let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("")) {
-
   }
-
 }
 
 async function playBallroom() {
-  
   let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("")) {
-    
   }
-
 }
 
 async function playLibrary() {
-  
   let input = await ask(">_ ");
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("")) {
-    
   }
-
 }
 
 async function playHall() {
-  
   let input = await ask(">_ ");
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("")) {
-    
   }
-
 }
 
 async function playBallroom() {
-  
   let input = await ask(">_ ");
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("")) {
-    
   }
-
 }
 
 async function playStudy() {
-  
   let input = await ask(">_ ");
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("")) {
-    
   }
-
 }
 
 async function playBilliardRoom() {
-  
   let input = await ask(">_ ");
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("")) {
-    
   }
 }
-
-
 
 // Launching game ////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
