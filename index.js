@@ -17,7 +17,7 @@ function ask(questionText) {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 let player = {
-  inventory: ["magnifying glass"],
+  inventory: ["A Magnifying Glass"],
   name: "",
   location: [],
   hasSpokenTo: [],
@@ -34,8 +34,7 @@ let player = {
   solve() {},
 };
 
-let characterFactory = (name, location, inventory) => {
-  inventoryArr = [inventory];
+let characterFactory = (name, location) => {
   return { name, location, inventoryArr };
 };
 
@@ -57,12 +56,64 @@ let cook = characterFactory("The Cook", "Kitchen");
 
 
 let roomFactory = (name, ...args) => {
-  inventoryArr = [args]
-  return {name, inventoryArr}
+  inventory = [args]
+  return {name, inventory}
 };
 
-let kitchen = roomFactory("The Kitchen", "Pans", "Body", "Knife");
+let kitchen = roomFactory("The Kitchen", "Frying Pan", "Body");
 
+let study = roomFactory("The Study", "A desk", "A couch", "A chair");
+
+let diningRoom = roomFactory("The Dining Room", "Dining Table", "An empty chair");
+
+let billiardRoom = roomFactory("The Billiard Room", "Billiard Table", "Billiard Balls", "Pool Cue");
+
+let lounge = roomFactory("The Lounge", "A couch", "A chair", "Bar cart");
+
+let conservatory = roomFactory("The Conservatory", "Orange tree", "Bamboo palm", "Spider plant");
+
+let ballroom = roomFactory("The Ballroom", "Chandelier", "Table", "Column");
+
+let library = roomFactory("The Library", "A bookshelf", "A fireplace", "A sofa");
+
+let hall = roomFactory("The Hall", "A bench", "A hallway runner", "A piano" )
+
+
+
+// Item constructor ///////////////////////////////////////////////////////////////////////////////
+
+class Item {
+  constructor(name, description, takeable, action) {
+      this.name = name;
+      this.desc = description;
+      this.takeable = takeable;
+      this.action = action;    
+  }
+}
+
+// Player initial inventory ////////////////////////////////////////////////////////////////////////
+
+let magnifyingGlass = new Item('A Magnifying Glass', 'An ordinary magnifying glass used to look closer.', true, () => {if ()})
+// Kitchen inventory ///////////////////////////////////////////////////////////////////////////////
+
+let fryingPan = new Item('Frying Pan', 'An ordinary frying pan. Maybe you could cook up some eggs with it.', true, () => {if (player.location === "The Kitchen") {console.log('You fry up some delicious eggs. Now back to the matter at hand!')}};
+
+let body = new Item('The Body', "The body of Mr. Body lies on his back, lifeless on the kitchen floor. A pool of blood surrounds his head.", false, ());
+
+
+// Study inventory /////////////////////////////////////////////////////////////////////////////////
+
+let studyDesk = new Item('A Desk', false, true, "Just an ordinary desk");
+
+let studyCouch = new Item('A couch', false, true, "A nice Victorian-style couch upon which Mr. Green and Mrs. White currently sit.");
+
+let studyChair = new Item('A chair', false, true, "A cushy Victorian-style chair. Perhaps you could have a sit.");
+
+// Dining Room inventory ///////////////////////////////////////////////////////////////////////////
+
+let diningTable = new Item('Dining Table', false, true, "A beautiful banquet dining table that seats 14.");
+
+let diningChair = new Item('Dining chair', false, true, "An empty dining chair next to Miss Scarlet and the cook. Perhaps you could have a sit.");
 
 
 const diningMessage =
