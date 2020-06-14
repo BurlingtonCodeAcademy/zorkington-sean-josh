@@ -100,7 +100,7 @@ let lounge = roomFactory(
 
 let conservatory = roomFactory(
   "The Conservatory",
-  "You see a beautiful conservatory filled with lots of plants and flowers. There is a large cabinet in the far corner.",
+  "\nYou see a beautiful conservatory filled with lots of plants and flowers. There is an orange tree, a bamboo palm and a spider plant. There is also a large cabinet in the far corner.",
   "Orange tree",
   "Bamboo palm",
   "Spider plant",
@@ -109,7 +109,7 @@ let conservatory = roomFactory(
 
 let ballroom = roomFactory(
   "The Ballroom",
-  "You see an expansive ballroom with a parquet floor and a large chandelier hanging in the center.",
+  "\nYou see an expansive ballroom with a parquet floor and a large chandelier hanging in the center.",
   "Chandelier",
   "Table",
   "Column"
@@ -117,7 +117,7 @@ let ballroom = roomFactory(
 
 let library = roomFactory(
   "The Library",
-  "You see a large library with many books on the shelf. Nothing much else of interests it seems.",
+  "\nYou see a large library with many books on the shelf. Nothing much else of interests it seems.",
   "A bookshelf",
   "A fireplace",
   "A sofa"
@@ -125,7 +125,7 @@ let library = roomFactory(
 
 let hall = roomFactory(
   "The Hall",
-  "You see the foyer of the house that contains a bench and a long hallway runner.",
+  "\nYou see the foyer of the house that contains a bench and a long hallway runner.",
   "A bench",
   "A hallway runner"
 );
@@ -145,7 +145,7 @@ class Item {
 
 let magnifyingGlass = new Item(
   "A Magnifying Glass",
-  "An ordinary magnifying glass used to look closer.",
+  "\nAn ordinary magnifying glass used to look closer.",
   true,
   ""
 );
@@ -154,7 +154,7 @@ let magnifyingGlass = new Item(
 
 let fryingPan = new Item(
   "Pan",
-  "An ordinary frying pan. Maybe you could cook up some eggs with it.",
+  "\nAn ordinary frying pan. Maybe you could cook up some eggs with it.",
   true,
   ""
 );
@@ -193,33 +193,33 @@ let stove = new Item(
 
 let studyDesk = new Item(
   "A Desk",
-  "A sturdy wooden desk, worn from years of use. Perfect for studying!",
+  "\nA sturdy wooden desk, worn from years of use. Perfect for studying!",
   false,
   () => {
     console.log(
-      "Grabbing a book on phytology, you sit at the desk and study up on the magical wonders of photosynthesis. 10 minutes later you know everything there is to know about plants. Back to investigating!"
+      "\nGrabbing a book on phytology, you sit at the desk and study up on the magical wonders of photosynthesis. 10 minutes later you know everything there is to know about plants. Back to investigating!"
     );
   }
 );
 
 let studyCouch = new Item(
   "A couch",
-  "A nice Victorian-style couch upon which Mr. Green and Mrs. White currently sit.",
+  "\nA nice Victorian-style couch upon which Mr. Green and Mrs. White currently sit.",
   false,
   () => {
     console.log(
-      'Without warning, you turn around and, interrupting their conversation, attempt to squeeze in with Mr. Green and Mrs. White on what is clearly a two-person couch. Following some initial grunts of suprise and discomfort, the room falls into an awkward silence. A moment passes and Mrs. White can bear it no longer, prompting her to comment that "perhaps the couch is not quite long enough to fit three people". Embarassed, you offer a quick apology and remove yourself from the couch. Your acquiantances eye you with a mix of confusion and suspicion before returning to their conversation.'
+      '\nWithout warning, you turn around and, interrupting their conversation, attempt to squeeze in with Mr. Green and Mrs. White on what is clearly a two-person couch. Following some initial grunts of suprise and discomfort, the room falls into an awkward silence. A moment passes and Mrs. White can bear it no longer, prompting her to comment that "perhaps the couch is not quite long enough to fit three people". Embarassed, you offer a quick apology and remove yourself from the couch. Your acquiantances eye you with a mix of confusion and suspicion before returning to their conversation.'
     );
   }
 );
 
 let studyChair = new Item(
   "A chair",
-  "A cushy Victorian-style chair. Perhaps you could have a sit.",
+  "\nA cushy Victorian-style chair. Perhaps you could have a sit.",
   false,
   () => {
     console.log(
-      "Sitting down in the chair, you soon realize that despite it's Victorian flourishes, it is quite uncomfortable. Furthermore, Mr. Green and Mrs. White are clearly growing uncomfortable that you are just sitting there observing them from across the room. Best to get back to the mission."
+      "\nSitting down in the chair, you soon realize that despite it's Victorian flourishes, it is quite uncomfortable. Furthermore, Mr. Green and Mrs. White are clearly growing uncomfortable that you are just sitting there observing them from across the room. Best to get back to the mission."
     );
   }
 );
@@ -228,22 +228,22 @@ let studyChair = new Item(
 
 let diningTable = new Item(
   "Dining Table",
-  "A beautiful banquet dining table that seats 14.",
+  "\nA beautiful banquet dining table that seats 14.",
   false,
   () => {
     console.log(
-      "'What a grand table' you murmer as you walk alongside it, running your hand across the exquisitely embroidered tablecloth that runs it's length. 'Ahem.' the cook grumbles. 'I believe you were brought here to solve a murder, not to marvel at the scenery.' You pause, raising an eyebrow. This cook really seems to be in a mood... perhaps it would be good to talk to him."
+      "\n'What a grand table' you murmer as you walk alongside it, running your hand across the exquisitely embroidered tablecloth that runs it's length. 'Ahem.' the cook grumbles. 'I believe you were brought here to solve a murder, not to marvel at the scenery.' You pause, raising an eyebrow. This cook really seems to be in a mood... perhaps it would be good to talk to him."
     );
   }
 );
 
 let diningChair = new Item(
   "Dining chair",
-  "An empty dining chair next to Miss Scarlet and the cook. Perhaps you could have a sit.",
+  "\nAn empty dining chair next to Miss Scarlet and the cook. Perhaps you could have a sit.",
   false,
   () => {
     console.log(
-      "Sitting down into the dining chair, you imagine a feast commencing before your eyes. What spectacular meals must have graced this banquet table? What intoxicating smells perfumed this dining room air? Visions of roasted duck and crusted country pasties consume you. Oatcake with honeycomb and flowers, tender freshwater shrimp garnished with cream and rose leaves, hazlenut bread and devilled barley pearls in acorn puree... oh, the ecstacy! OH THE ECSTA- 'What in the world are you going on about?!' Screams the cook, looking quite annoyed. You realize that at some point during your daydream you began speaking out loud. Yikes. Best leave this siren of a dining chair and get back to work..."
+      "\nSitting down into the dining chair, you imagine a feast commencing before your eyes. What spectacular meals must have graced this banquet table? What intoxicating smells perfumed this dining room air? Visions of roasted duck and crusted country pasties consume you. Oatcake with honeycomb and flowers, tender freshwater shrimp garnished with cream and rose leaves, hazlenut bread and devilled barley pearls in acorn puree... oh, the ecstacy! OH THE ECSTA- 'What in the world are you going on about?!' Screams the cook, looking quite annoyed. You realize that at some point during your daydream you began speaking out loud. Yikes. Best leave this siren of a dining chair and get back to work..."
     );
   }
 );
@@ -252,29 +252,29 @@ let diningChair = new Item(
 
 let loungeChaise = new Item(
   "Chaise lounge",
-  "An elegant left arm chaise lounge",
+  "\nAn elegant left arm chaise lounge",
   false,
   () => {
     console.log(
-      "Leaning back into the lounge, your mind begins to drift as eyes examine the painted ceiling of the room. It depicts a lovely scene of clouds and angels, floating along a dreamy backdrop baby blue swirls. You can almost make out little stars twinkling in the distance, suggesting even greater depth to the sky above. What secrets lie beyond the lofty heights? What mysteries live cloaked among the clouds? Hmmmm, but an even greater mystery remains waiting to be solved right here on the ground, and daylight is burning. Carpe diem!"
+      "\nLeaning back into the lounge, your mind begins to drift as eyes examine the painted ceiling of the room. It depicts a lovely scene of clouds and angels, floating along a dreamy backdrop baby blue swirls. You can almost make out little stars twinkling in the distance, suggesting even greater depth to the sky above. What secrets lie beyond the lofty heights? What mysteries live cloaked among the clouds? Hmmmm, but an even greater mystery remains waiting to be solved right here on the ground, and daylight is burning. Carpe diem!"
     );
   }
 );
 
 let loungeChair = new Item(
   "Lounge chair",
-  "A chair. In a lounge.",
+  "\nA chair. In a lounge.",
   false,
   () => {
     console.log(
-      "You take a seat in the chair. To your dismay, you find it to be quite uncomfortable. That chaise lounge across the room, however... that looks quite nice..."
+      "\nYou take a seat in the chair. To your dismay, you find it to be quite uncomfortable. That chaise lounge across the room, however... that looks quite nice..."
     );
   }
 );
 
 let loungeBarCart = new Item("Bar cart", "A 3-tier bar cart", false, () => {
   console.log(
-    "Well well well! A cart filled with nothing but the finest spirits, beers, and wines! What shall you have? A little hot toddy to take the edge off? A negroni, pour vous? You are tempted, very tempted... but with options this tasty you risk compormising your focus. You must remain sharp! Who knows when the next clue will arise? And besides, there IS still a murderer in the house with a strong motive to see you dead... yes, best keep your wits about you. Maybe you'll return to the cart AFTER this is finished."
+    "\nWell well well! A cart filled with nothing but the finest spirits, beers, and wines! What shall you have? A little hot toddy to take the edge off? A negroni, pour vous? You are tempted, very tempted... but with options this tasty you risk compormising your focus. You must remain sharp! Who knows when the next clue will arise? And besides, there IS still a murderer in the house with a strong motive to see you dead... yes, best keep your wits about you. Maybe you'll return to the cart AFTER this is finished."
   );
 });
 
@@ -282,17 +282,17 @@ let loungeBarCart = new Item("Bar cart", "A 3-tier bar cart", false, () => {
 
 let orangeTree = new Item("Orange tree", "An orange tree", false, () => {
   console.log(
-    "Looking both ways to make sure you aren't being watched, you determine you are alone. You pluck an orange, and damn - this is one seriously fresh orange! Minutes later, and you've finished the whole thing. But where to discard the peel?"
+    "\nLooking both ways to make sure you aren't being watched, you determine you are alone. You pluck an orange, and damn - this is one seriously fresh orange! Minutes later, and you've finished the whole thing. But where to discard the peel?"
   );
 });
 
 let bambooPalm = new Item("Bamboo palm", "A bamboo palm", false, () => {
-  console.log("Just a bamboo palm. Nice.");
+  console.log("\nJust a bamboo palm. Nice.");
 });
 
 let spiderPlant = new Item("Spider plant", "A spider plant", false, () => {
   console.log(
-    "Ah, the humble spider plant: known to purify air more effectively than any other household plant. Nothing particularly distinct about this one, though."
+    "\nAh, the humble spider plant: known to purify air more effectively than any other household plant. Nothing particularly distinct about this one, though."
   );
 });
 
@@ -326,10 +326,11 @@ const billiardMessage = "\nYou have entered the billiard room.";
 
 // Dialog assignments ////////////////////////////////////////////////////////////////////////////
 
-green.dialogOne =
-  "\nWe were all enjoying some good after dinner conversation when the power in the house went out and then the lights came back on we heard a scream from the kitchen. When we all rushed in we discovered Mr. Body dead on the floor. Miss Scarlet was the first one to discover the body. She's pretty broken up about it. My cook is currently in the [dining room] with her consoling her. Maybe you should go [speak] to her.";
+green.dialogOne = `\n"We were all enjoying some good after dinner conversation when the power in the house went out and then the lights came back on we heard a scream from the kitchen. When we all rushed in we discovered Mr. Body dead on the floor. Miss Scarlet was the first one to discover the body. She's pretty broken up about it. My cook is currently in the dining room with her consoling her. Maybe you should go speak to her."`;
 
-cook.dialogOne = "\nHello inspector. What a horrible thing that has happened.";
+scarlet.dialogOne = `\nShe lifts her head up from the table, still sobbing, to meet your eyes. Through a stream of tears she explains to you that when the lights went out she heard a thud in the kitchen and when the lights came back on she went to the kitchen to see what the commotion was about only to discover Mr. Body lying dead on the floor in a pool of his own blood.`;
+
+cook.dialogOne = `\n"Hello, inspector. What a horrible thing that has happened." You notice what appears to be a few drops of blood on his apron. Curious.`;
 
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -398,19 +399,19 @@ async function playKitchen() {
     playKitchen();
   } else if (inputArr.includes("go") && inputArr.includes("dining")) {
     player.location = "The Dining Room";
-    console.log(diningMessage);
+    console.log(diningRoom.desc);
     playDining();
   } else if (inputArr.includes("go") && inputArr.includes("conservatory")) {
     player.location = "The Conservatory";
-    console.log(conservatoryMessage);
+    console.log(conservatory.desc);
     playConservatory();
   } else if (inputArr.includes("go") && inputArr.includes("library")) {
     player.location = "The Library";
-    console.log(libraryMessage);
+    console.log(library.desc);
     playLibrary();
   } else if (inputArr.includes("go") && inputArr.includes("study")) {
     player.location = "The Study";
-    console.log(studyMessage);
+    console.log(study.desc);
     playStudy();
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
     console.log("\n" + kitchen.desc + " Items include: " + kitchen.inventory);
@@ -498,7 +499,7 @@ async function playConservatory() {
   } else if (inputArr.includes("solve") && inputArr.includes("murder")) {
     if (player.inventory.inclues("A bloody billiard ball")) {
       console.log(
-        "I conclude that Mr. Green is the murderer, by way of the cook! Mr. Green took a billiard ball from the billiard room and ordered the cook to murder Mr. Body with it because Mr. Body was an investigative journalist working on a story that threatened to expose the fact that Mr. Green is a collector of priceless stolen artwork!"
+        `You gather everyone in the Conservatory to make your final statement. "I conclude that Mr. Green is the murderer, by way of the cook! Mr. Green took a billiard ball from the billiard room and ordered the cook to murder Mr. Body with it because Mr. Body was an investigative journalist working on a story that threatened to expose the fact that Mr. Green is a collector of priceless stolen artwork!"`
       );
       process.exit();
     } else {
@@ -553,8 +554,6 @@ async function playStudy() {
 async function playBilliardRoom() {
   let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
-
-  
 }
 
 // Launching game ////////////////////////////////////////////////////////////////////////////
