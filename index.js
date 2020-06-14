@@ -568,6 +568,12 @@ async function playLibrary() {
     }
     playLibrary();
   }
+  else if (inputArr.includes("look") && inputArr.includes("around")) {
+    console.log(
+      "\n" + library.desc + " Items include: " + library.inventory
+    );
+    playDining();
+  }
   else if ((inputArr.includes("examine") && inputArr.includes("bookshelf")) || (inputArr.includes("examine") && inputArr.includes("book shelf"))){
     console.log(libBookshelf.desc);
     playLibrary();
