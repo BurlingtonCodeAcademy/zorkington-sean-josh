@@ -290,6 +290,8 @@ let spiderPlant = new Item("Spider plant", "A spider plant", false, () => {
   );
 });
 
+let cabinet = new Item("A large cabinet", "A large cabinet, it appears to be locked.", false, () => { console.log(`\nYou see a rather large cabinet. One might call it an armoire. It appears to be locked. `)})
+
 // Ballroom inventory ////////////////////////////////////////////////////////////////////////////
 
 let chandelier = new Item("Chandelier", "A chandelier", false, () => { 
@@ -330,9 +332,23 @@ let libSofa = new Item("Sofa", "A sofa", false, () => {
   );
 });
 
-const studyMessage = "\nYou have entered the study.";
+// Room entry messages ////////////////////////////////////////////////////////////////////////////
 
-const billiardMessage = "\nYou have entered the billiard room.";
+const studyMessage = "\nYou have entered the Study.";
+
+const billiardMessage = "\nYou have entered the Billiard Room.";
+
+const conservatoryMessage = "\nYou have entered the Conservatory.";
+
+const diningMessage = "\nYou have enetered the Dining Room.";
+
+const libraryMessage = "\nYou have entered the Library.";
+
+const kitchenMessage = "\nYou have entered the Kitchen.";
+
+const ballroomMessage = "\nYou have enetered the Ballroom.";
+
+const loungeMessage = "\nYou have entered the Lounge.";
 
 // Dialog assignments ////////////////////////////////////////////////////////////////////////////
 
@@ -343,6 +359,8 @@ scarlet.dialogOne = `\nShe lifts her head up from the table, still sobbing, to m
 cook.dialogOne = `\n"Hello, inspector. What a horrible thing that has happened." You notice what appears to be a few drops of blood on his apron. Curious.`;
 
 mustard.dialogOne = `\nHello, inspector. I trust the investigation is going well? I was just in this lounge enjoying a after dinner cocktail with Mrs. Peacock here when the lights suddenly went out, isn't that right? When the came back on we heard a god-awful scream from the kitchen and rushed in to find Mr. Body on the floor.`;
+
+peacock.dialogOne = `\nWhat an absolutely dreadful night it has turned out to be. It was such a lovely evening up until the murder. Mr. Body, that poor soul. I never could quite get a read on him. He seemed to be pre-occupied looking around the house. I suspect he was an admirer of art. He seemed to be closely inspecting Mr. Green's artwork. Professor Plum may be able to give you more about the deceased. I saw the two of them speaking earlier in the evening. He is in the library.`
 
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -411,19 +429,19 @@ async function playKitchen() {
     playKitchen();
   } else if (inputArr.includes("go") && inputArr.includes("dining")) {
     player.location = "The Dining Room";
-    console.log(diningRoom.desc);
+    console.log(diningMessage);
     playDining();
   } else if (inputArr.includes("go") && inputArr.includes("conservatory")) {
     player.location = "The Conservatory";
-    console.log(conservatory.desc);
+    console.log(conservatoryMessage);
     playConservatory();
   } else if (inputArr.includes("go") && inputArr.includes("library")) {
     player.location = "The Library";
-    console.log(library.desc);
+    console.log(libraryMessage);
     playLibrary();
   } else if (inputArr.includes("go") && inputArr.includes("study")) {
     player.location = "The Study";
-    console.log(study.desc);
+    console.log(studyMessage);
     playStudy();
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
     console.log("\n" + kitchen.desc + " Items include: " + kitchen.inventory);
@@ -488,7 +506,7 @@ async function playDining() {
     playBilliardRoom();
   } else if (inputArr.includes("go") && inputArr.includes("lounge")) {
     player.location = "The Lounge";
-    console.log(lounge.desc);
+    console.log(loungeMessage);
     playLounge();
   } else {
     console.log(
@@ -514,7 +532,43 @@ async function playLounge() {
       player.hasSpokenTo.push("peacock");
     }
     playLounge();
-  }
+  } else if (inputArr.includes("sit") && inputArr.includes("couch")) {
+    console.log(loungeChaise.action());
+    playLounge();
+  } else if (inputArr.includes("use") && inputArr.includes("bar")) {
+    console.log(loungeBarCart.action());
+    playLounge();
+  } else if (inputArr.includes("sit") && inputArr.includes("chair")) {
+    console.log(loungeChair.action());
+    playLounge();
+  } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
+    player.location = "The Kitchen";
+    console.log(kitchenMessage);
+    playKitchen();
+  } else if (inputArr.includes("go") && inputArr.includes("conservatory")) {
+    player.location = "The Conservatory";
+    console.log(conservatoryMessage);
+    playConservatory();
+  } else if (inputArr.includes("go") && inputArr.includes("library")) {
+    player.location = "The Library";
+    console.log(libraryMessage);
+    playLibrary();
+  } else if (inputArr.includes("go") && inputArr.includes("study")) {
+    player.location = "The Study";
+    console.log(studyMessage);
+    playStudy();
+  } else if (inputArr.includes("go") && inputArr.includes("billiard")) {
+    player.location = "The Billiard Room";
+    console.log(billiardMessage);
+    playBilliardRoom();
+  } else if (inputArr.includes("go") && inputArr.includes("dining")) {
+    player.location = "The Dining Room";
+    console.log(diningMessage);
+    playDining();
+  } else {
+    console.log(
+      `\nI don't understand what you want and/or you can't do that in this room...`
+    );
 }
 
 async function playConservatory() {
@@ -533,17 +587,61 @@ async function playConservatory() {
       playConservatory();
     }
   } else if (inputArr.includes("solve") && inputArr.includes("murder")) {
-    if (player.inventory.inclues("A bloody billiard ball")) {
-      console.log(
+      if (player.inventory.inclues("A bloody billiard ball")) {
+        console.log(
         `You gather everyone in the Conservatory to make your final statement. "I conclude that Mr. Green is the murderer, by way of the cook! Mr. Green took a billiard ball from the billiard room and ordered the cook to murder Mr. Body with it because Mr. Body was an investigative journalist working on a story that threatened to expose the fact that Mr. Green is a collector of priceless stolen artwork!"`
       );
       process.exit();
-    } else {
+      } else {
       console.log("You lack a piece of evidence to solve the murder!");
       playConservatory();
     }
+  } else if (inputArr.includes("examine") && inputArr.includes("spider")) {
+      console.log(spiderPlant.action())
+      playConservatory();
+  } else if (inputArr.includes("examine") && inputArr.includes("orange")) {
+      console.log(orangeTree.action())
+      playConservatory();
+  } else if (inputArr.includes("take") && inputArr.includes("key")) {
+      player.inventory.push("A key");
+      console.log("\nYou have taken the key.");
+      conservatory.inventory.splice("A key");
+      playConservatory();
+  } else if (inputArr.includes("examine") && inputArr.includes("palm")) {
+      console.log(bambooPalm.action());
+      playConservatory();
+  } else if (inputArr.includes("examine") && inputArr.includes("cabinet")) {
+      console.log(cabinet.action());
+      playConservatory();
+  }
+  else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
+    player.location = "The Kitchen";
+    console.log(kitchenMessage);
+    playKitchen();
+  } else if (inputArr.includes("go") && inputArr.includes("dining")) {
+    player.location = "The Dining Room";
+    console.log(diningMessage);
+    playDining();
+  } else if (inputArr.includes("go") && inputArr.includes("library")) {
+    player.location = "The Library";
+    console.log(libraryMessage);
+    playLibrary();
+  } else if (inputArr.includes("go") && inputArr.includes("study")) {
+    player.location = "The Study";
+    console.log(studyMessage);
+    playStudy();
+  } else if (inputArr.includes("go") && inputArr.includes("billiard")) {
+    player.location = "The Billiard Room";
+    console.log(billiardMessage);
+    playBilliardRoom();
+  } else if (inputArr.includes("go") && inputArr.includes("lounge")) {
+    player.location = "The Lounge";
+    console.log(loungeMessage);
+    playLounge();
   } else {
-    console.log("I'm sorry I can't do that here or don't know what you want.");
+    console.log(
+      `\nI don't understand what you want and/or you can't do that in this room...`
+    );
   }
 }
 
