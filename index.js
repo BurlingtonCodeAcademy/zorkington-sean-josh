@@ -290,7 +290,7 @@ let spiderPlant = new Item("Spider plant", "A spider plant", false, () => {
   );
 });
 
-let cabinet = new Item("A large cabinet", "A large cabinet, it appears to be locked.", false, () => { console.log(`\nYou see a rather large cabinet. One might call it an armoire. It appears to be locked. `)})
+let cabinet = new Item("A large cabinet", "A large cabinet, it appears to be locked.", false, () => { console.log(`\nYou see a rather large cabinet. One might call it an armoire. It appears to be locked. Perhaps there is a key nearby?`)})
 
 // Ballroom inventory ////////////////////////////////////////////////////////////////////////////
 
@@ -569,6 +569,7 @@ async function playLounge() {
     console.log(
       `\nI don't understand what you want and/or you can't do that in this room...`
     );
+  }
 }
 
 async function playConservatory() {
@@ -587,9 +588,9 @@ async function playConservatory() {
       playConservatory();
     }
   } else if (inputArr.includes("solve") && inputArr.includes("murder")) {
-      if (player.inventory.inclues("A bloody billiard ball")) {
+      if (player.inventory.includes("A bloody billiard ball")) {
         console.log(
-        `You gather everyone in the Conservatory to make your final statement. "I conclude that Mr. Green is the murderer, by way of the cook! Mr. Green took a billiard ball from the billiard room and ordered the cook to murder Mr. Body with it because Mr. Body was an investigative journalist working on a story that threatened to expose the fact that Mr. Green is a collector of priceless stolen artwork!"`
+        `\nYou gather everyone in the Conservatory to make your final statement. "I conclude that Mr. Green is the murderer, by way of the cook! Mr. Green took a billiard ball from the billiard room and ordered the cook to murder Mr. Body with it because Mr. Body was an investigative journalist working on a story that threatened to expose the fact that Mr. Green is a collector of priceless stolen artwork!\n"`
       );
       process.exit();
       } else {
@@ -613,8 +614,7 @@ async function playConservatory() {
   } else if (inputArr.includes("examine") && inputArr.includes("cabinet")) {
       console.log(cabinet.action());
       playConservatory();
-  }
-  else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
+  } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
     console.log(kitchenMessage);
     playKitchen();
