@@ -38,21 +38,21 @@ let characterFactory = (name, location) => {
   return { name, location };
 };
 
-let green = characterFactory("Mr. Green", "Kitchen");
+let green = characterFactory("Mr. Green", "The Kitchen");
 
-let mustard = characterFactory("Colonel Mustard", "Lounge");
+let mustard = characterFactory("Colonel Mustard", "The Lounge");
 
-let scarlet = characterFactory("Miss Scarlet", "Dining Room");
+let scarlet = characterFactory("Miss Scarlet", "The Dining Room");
 
-let peacock = characterFactory("Mrs. Peacock", "Lounge");
+let peacock = characterFactory("Mrs. Peacock", "The Lounge");
 
-let plum = characterFactory("Professor Plum", "Library");
+let plum = characterFactory("Professor Plum", "The Library");
 
-let body = characterFactory("Mr. Body", "Kitchen");
+let body = characterFactory("Mr. Body", "The Kitchen");
 
-let white = characterFactory("Mrs. White", "Study");
+let white = characterFactory("Mrs. White", "The Study");
 
-let cook = characterFactory("The Cook", "Kitchen");
+let cook = characterFactory("The Cook", "The Kitchen");
 
 let roomFactory = (name, desc, ...args) => {
   inventory = [args];
@@ -61,7 +61,7 @@ let roomFactory = (name, desc, ...args) => {
 
 let kitchen = roomFactory(
   "The Kitchen",
-  "You see a beautiful kitchen with many appliances including a nice stove.",
+  "\nYou see a beautiful kitchen with many appliances including a nice stove.",
   "Frying Pan",
   "Body",
   "Stove"
@@ -69,7 +69,7 @@ let kitchen = roomFactory(
 
 let study = roomFactory(
   "The Study",
-  "You see a beautiful mahogany-lined room with a couch upon which Mr. Green and Mrs. White currently sit.",
+  "\nYou see a beautiful mahogany-lined room with a couch upon which Mr. Green and Mrs. White currently sit.",
   "A desk",
   "A couch",
   "A chair"
@@ -77,14 +77,14 @@ let study = roomFactory(
 
 let diningRoom = roomFactory(
   "The Dining Room",
-  "You see a large Dining Room with a table and chairs, two of which contain Miss Scarlet and the cook.",
+  "\nYou see a large Dining Room with a table and chairs, two of which contain Miss Scarlet and the cook.",
   "Dining Table",
   "An empty chair"
 );
 
 let billiardRoom = roomFactory(
   "The Billiard Room",
-  "You see a rich mahogany room with a billiard table at the center",
+  "\nYou see a rich mahogany room with a billiard table at the center",
   "Billiard Table",
   "Billiard Balls",
   "Pool Cue"
@@ -92,7 +92,7 @@ let billiardRoom = roomFactory(
 
 let lounge = roomFactory(
   "The Lounge",
-  "You see a beautifully decorated room with a bar cart, a chair and a couch upon which Colonel Mustard and Mrs. Peacock sit.",
+  "\nYou see a beautifully decorated room with a bar cart, a chair and a couch upon which Colonel Mustard and Mrs. Peacock sit.",
   "A couch",
   "A chair",
   "Bar cart"
@@ -121,13 +121,6 @@ let library = roomFactory(
   "A bookshelf",
   "A fireplace",
   "A sofa"
-);
-
-let hall = roomFactory(
-  "The Hall",
-  "\nYou see the foyer of the house that contains a bench and a long hallway runner.",
-  "A bench",
-  "A hallway runner"
 );
 
 // Item constructor ///////////////////////////////////////////////////////////////////////////////
@@ -282,8 +275,9 @@ let loungeBarCart = new Item("Bar cart", "A 3-tier bar cart", false, () => {
 
 let orangeTree = new Item("Orange tree", "An orange tree", false, () => {
   console.log(
-    "\nLooking both ways to make sure you aren't being watched, you determine you are alone. You pluck an orange, and damn - this is one seriously fresh orange! Minutes later, and you've finished the whole thing. But where to discard the peel?"
+    "\nLooking both ways to make sure you aren't being watched, you determine you are alone. You pluck an orange, and damn - this is one seriously fresh orange! Minutes later, and you've finished the whole thing. But where to discard the peel? As you look around for a waste bin you notice something shiny. It appears to be a key."
   );
+  conservatory.inventory.push("A key");
 });
 
 let bambooPalm = new Item("Bamboo palm", "A bamboo palm", false, () => {
@@ -296,7 +290,7 @@ let spiderPlant = new Item("Spider plant", "A spider plant", false, () => {
   );
 });
 
-// Ballroom inventory //////////////////////////////////////////////////////////////////////////
+// Ballroom inventory ////////////////////////////////////////////////////////////////////////////
 
 let chandelier = new Item("Chandelier", "A chandelier", false, () => { 
   console.log(
@@ -344,9 +338,11 @@ const billiardMessage = "\nYou have entered the billiard room.";
 
 green.dialogOne = `\n"We were all enjoying some good after dinner conversation when the power in the house went out and then the lights came back on we heard a scream from the kitchen. When we all rushed in we discovered Mr. Body dead on the floor. Miss Scarlet was the first one to discover the body. She's pretty broken up about it. My cook is currently in the dining room with her consoling her. Maybe you should go speak to her."`;
 
-scarlet.dialogOne = `\nShe lifts her head up from the table, still sobbing, to meet your eyes. Through a stream of tears she explains to you that when the lights went out she heard a thud in the kitchen and when the lights came back on she went to the kitchen to see what the commotion was about only to discover Mr. Body lying dead on the floor in a pool of his own blood.`;
+scarlet.dialogOne = `\nShe lifts her head up from the table, still sobbing, to meet your eyes. Through a stream of tears she explains to you that when the lights went out she heard a thud in the kitchen and when the lights came back on she went to the kitchen to see what the commotion was about only to discover Mr. Body lying dead on the floor in a pool of his own blood. Perhaps Colonel Mustard or Mrs. Peacock have more to tell you. They can be found in the lounge.`;
 
 cook.dialogOne = `\n"Hello, inspector. What a horrible thing that has happened." You notice what appears to be a few drops of blood on his apron. Curious.`;
+
+mustard.dialogOne = `\nHello, inspector. I trust the investigation is going well? I was just in this lounge enjoying a after dinner cocktail with Mrs. Peacock here when the lights suddenly went out, isn't that right? When the came back on we heard a god-awful scream from the kitchen and rushed in to find Mr. Body on the floor.`;
 
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -461,6 +457,15 @@ async function playDining() {
       "\n" + diningRoom.desc + " Items include: " + diningRoom.inventory
     );
     playDining();
+  } else if (inputArr.includes("examine") && inputArr.includes("chair")) {
+    console.log(diningChair.desc);
+    playDining();
+  } else if (inputArr.includes("examine") && inputArr.includes("table")) {
+    console.log(diningTable.desc);
+    playDining();
+  } else if (inputArr.includes("sit") && inputArr.includes("chair")) {
+    diningChair.action();
+    playDining();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
     console.log(kitchenMessage);
@@ -481,11 +486,15 @@ async function playDining() {
     player.location = "The Billiard Room";
     console.log(billiardMessage);
     playBilliardRoom();
+  } else if (inputArr.includes("go") && inputArr.includes("lounge")) {
+    player.location = "The Lounge";
+    console.log(lounge.desc);
+    playLounge();
   } else {
     console.log(
       `\nI don't understand what you want and/or you can't do that in this room...`
     );
-    playKitchen();
+    playDining();
   }
 }
 
@@ -493,7 +502,18 @@ async function playLounge() {
   let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
 
-  if (inputArr.includes("speak") && inputArr.includes("")) {
+  if (inputArr.includes("speak") && inputArr.includes("mustard")) {
+    console.log(mustard.dialogOne);
+    if (!player.hasSpokenTo.includes("mustard")) {
+      player.hasSpokenTo.push("mustard");
+    }
+    playLounge();
+  } else if (inputArr.includes("speak") && inputArr.includes("peacock")) {
+    console.log(peacock.dialogOne);
+    if (!player.hasSpokenTo.includes("peacock")) {
+      player.hasSpokenTo.push("peacock");
+    }
+    playLounge();
   }
 }
 
@@ -509,7 +529,7 @@ async function playConservatory() {
       player.inventory.push("A bloody billiard ball");
       playConservatory();
     } else {
-      console.log("\nYou do not have a key!");
+      console.log("\nYou do not have a key! Maybe it is hidden nearby.");
       playConservatory();
     }
   } else if (inputArr.includes("solve") && inputArr.includes("murder")) {
