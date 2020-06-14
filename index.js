@@ -61,7 +61,7 @@ let roomFactory = (name, desc, ...args) => {
 
 let kitchen = roomFactory(
   "The Kitchen",
-  "\nYou see a beautiful kitchen with many appliances including a nice stove.",
+  "\nYou see a beautiful kitchen with many appliances including a nice stove. You can see that the kitchen connects to the Dining Room, the Conservatory, the Library and the Study.",
   "Frying Pan",
   "Body",
   "Stove"
@@ -69,7 +69,7 @@ let kitchen = roomFactory(
 
 let study = roomFactory(
   "The Study",
-  "\nYou see a beautiful mahogany-lined room with a couch upon which Mr. Green and Mrs. White currently sit.",
+  "\nYou see a beautiful mahogany-lined room with a couch upon which Mr. Green and Mrs. White currently sit. You can see that the Study is connected to the Kitchen, the Billiard room and the Library.",
   "A desk",
   "A couch",
   "A chair"
@@ -77,14 +77,14 @@ let study = roomFactory(
 
 let diningRoom = roomFactory(
   "The Dining Room",
-  "\nYou see a large Dining Room with a table and chairs, two of which contain Miss Scarlet and the cook.",
+  "\nYou see a large Dining Room with a table and chairs, two of which contain Miss Scarlet and the cook. You can see that the Dining room is connected to the Kitchen, the Billiard room and the Lounge.",
   "Dining Table",
   "An empty chair"
 );
 
 let billiardRoom = roomFactory(
   "The Billiard Room",
-  "\nYou see a rich mahogany room with a billiard table at the center",
+  "\nYou see a rich mahogany room with a billiard table at the center. You can see that the Billiard room is connected to the Dining room and the Study.",
   "Billiard Table",
   "Billiard Balls",
   "Pool Cue"
@@ -92,7 +92,7 @@ let billiardRoom = roomFactory(
 
 let lounge = roomFactory(
   "The Lounge",
-  "\nYou see a beautifully decorated room with a bar cart, a chair and a couch upon which Colonel Mustard and Mrs. Peacock sit.",
+  "\nYou see a beautifully decorated room with a bar cart, a chair and a couch upon which Colonel Mustard and Mrs. Peacock sit. You can see that the Lounge is connected to the Conservatory and the Dining room.",
   "A couch",
   "A chair",
   "Bar cart"
@@ -100,7 +100,7 @@ let lounge = roomFactory(
 
 let conservatory = roomFactory(
   "The Conservatory",
-  "\nYou see a beautiful conservatory filled with lots of plants and flowers. There is an orange tree, a bamboo palm and a spider plant. There is also a large cabinet in the far corner.",
+  "\nYou see a beautiful conservatory filled with lots of plants and flowers. There is an orange tree, a bamboo palm and a spider plant. There is also a large cabinet in the far corner. You can see that the Conservatory is connected to the Lounge and the Ballroom.",
   "Orange tree",
   "Bamboo palm",
   "Spider plant",
@@ -109,7 +109,7 @@ let conservatory = roomFactory(
 
 let ballroom = roomFactory(
   "The Ballroom",
-  "\nYou see an expansive ballroom with a parquet floor and a large chandelier hanging in the center.",
+  "\nYou see an expansive ballroom with a parquet floor and a large chandelier hanging in the center. You can see that the Ballroom is connected to the Conservatory and the Library.",
   "Chandelier",
   "Table",
   "Column"
@@ -117,7 +117,7 @@ let ballroom = roomFactory(
 
 let library = roomFactory(
   "The Library",
-  "\nYou see a large library with many books on the shelf. Nothing much else of interests it seems.",
+  "\nYou see a large library with many books on the shelf. Professor Plum sits on a sofa with an open book on his lap. You can see that the Library is connected to the Ballroom and the Study.",
   "A bookshelf",
   "A fireplace",
   "A sofa"
@@ -290,26 +290,38 @@ let spiderPlant = new Item("Spider plant", "A spider plant", false, () => {
   );
 });
 
-let cabinet = new Item("A large cabinet", "A large cabinet, it appears to be locked.", false, () => { console.log(`\nYou see a rather large cabinet. One might call it an armoire. It appears to be locked. Perhaps there is a key nearby?`)})
+let cabinet = new Item(
+  "A large cabinet",
+  "A large cabinet, it appears to be locked.",
+  false,
+  () => {
+    console.log(
+      `\nYou see a rather large cabinet. One might call it an armoire. It appears to be locked. Perhaps there is a key nearby?`
+    );
+  }
+);
 
 // Ballroom inventory ////////////////////////////////////////////////////////////////////////////
 
-let chandelier = new Item("Chandelier", "A chandelier", false, () => { 
+let chandelier = new Item("Chandelier", "A chandelier", false, () => {
   console.log(
     "\nWhat is my perfect crime? I break into Tiffany's at midnight. Do I go for the vault? No, I go for the chandelier. It's priceless. As I'm taking it down, a woman catches me. She tells me to stop. It's her father's business. She's Tiffany. I say no. We make love all night. In the morning, the cops come and I escape in one of their uniforms. I tell her to meet me in Mexico, but I go to Canada. I don't trust her. Besides, I like the cold. Thirty years later, I get a postcard. I have a son and he's the chief of police. This is where the story gets interesting. I tell Tiffany to meet me in Paris by the Trocadero. She's been waiting for me all these years. She's never taken another lover. I don't care. I don't show up. I go to Berlin. That's where I stashed the chandelier."
   );
 });
 
-let ballroomTable = new Item("Ballroom table", "A ballroom table", false, () => {
-  console.log(
-    "\nJust a round table for holding drinks. Not much to see here. And who sits down at a ball anyway?"
-  );
-});
+let ballroomTable = new Item(
+  "Ballroom table",
+  "A ballroom table",
+  false,
+  () => {
+    console.log(
+      "\nJust a round table for holding drinks. Not much to see here. And who sits down at a ball anyway?"
+    );
+  }
+);
 
 let column = new Item("Column", "A column", false, () => {
-  console.log(
-    "\nA stately column. Magnifique!"
-  );
+  console.log("\nA stately column. Magnifique!");
 });
 
 // Library inventory /////////////////////////////////////////////////////////////////////////////
@@ -317,7 +329,7 @@ let column = new Item("Column", "A column", false, () => {
 let libBookshelf = new Item("Bookshelf", "A bookshelf", false, () => {
   console.log(
     "\nA large and ancient bookshelf, filled with numerous volumes of books, games, and little treasures."
-  )
+  );
 });
 
 let libFireplace = new Item("Fireplace", "A fireplace", false, () => {
@@ -360,7 +372,7 @@ cook.dialogOne = `\n"Hello, inspector. What a horrible thing that has happened."
 
 mustard.dialogOne = `\nHello, inspector. I trust the investigation is going well? I was just in this lounge enjoying a after dinner cocktail with Mrs. Peacock here when the lights suddenly went out, isn't that right? When the came back on we heard a god-awful scream from the kitchen and rushed in to find Mr. Body on the floor.`;
 
-peacock.dialogOne = `\nWhat an absolutely dreadful night it has turned out to be. It was such a lovely evening up until the murder. Mr. Body, that poor soul. I never could quite get a read on him. He seemed to be pre-occupied looking around the house. I suspect he was an admirer of art. He seemed to be closely inspecting Mr. Green's artwork. Professor Plum may be able to give you more about the deceased. I saw the two of them speaking earlier in the evening. He is in the library.`
+peacock.dialogOne = `\nWhat an absolutely dreadful night it has turned out to be. It was such a lovely evening up until the murder. Mr. Body, that poor soul. I never could quite get a read on him. He seemed to be pre-occupied looking around the house. I suspect he was an admirer of art. He seemed to be closely inspecting Mr. Green's artwork. Professor Plum may be able to give you more about the deceased. I saw the two of them speaking earlier in the evening. He is in the library.`;
 
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -444,7 +456,7 @@ async function playKitchen() {
     console.log(studyMessage);
     playStudy();
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
-    console.log("\n" + kitchen.desc + " Items include: " + kitchen.inventory);
+    console.log(kitchen.desc + " Items include: " + kitchen.inventory);
     playKitchen();
   } else {
     console.log(
@@ -471,15 +483,13 @@ async function playDining() {
     }
     playDining();
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
-    console.log(
-      "\n" + diningRoom.desc + " Items include: " + diningRoom.inventory
-    );
+    console.log(diningRoom.desc + " Items include: " + diningRoom.inventory);
     playDining();
   } else if (inputArr.includes("examine") && inputArr.includes("chair")) {
-    console.log(diningChair.desc);
+    console.log(diningChair.action());
     playDining();
   } else if (inputArr.includes("examine") && inputArr.includes("table")) {
-    console.log(diningTable.desc);
+    console.log(diningTable.action());
     playDining();
   } else if (inputArr.includes("sit") && inputArr.includes("chair")) {
     diningChair.action();
@@ -588,32 +598,32 @@ async function playConservatory() {
       playConservatory();
     }
   } else if (inputArr.includes("solve") && inputArr.includes("murder")) {
-      if (player.inventory.includes("A bloody billiard ball")) {
-        console.log(
+    if (player.inventory.includes("A bloody billiard ball")) {
+      console.log(
         `\nYou gather everyone in the Conservatory to make your final statement. "I conclude that Mr. Green is the murderer, by way of the cook! Mr. Green took a billiard ball from the billiard room and ordered the cook to murder Mr. Body with it because Mr. Body was an investigative journalist working on a story that threatened to expose the fact that Mr. Green is a collector of priceless stolen artwork!\n"`
       );
       process.exit();
-      } else {
+    } else {
       console.log("You lack a piece of evidence to solve the murder!");
       playConservatory();
     }
   } else if (inputArr.includes("examine") && inputArr.includes("spider")) {
-      console.log(spiderPlant.action())
-      playConservatory();
+    console.log(spiderPlant.action());
+    playConservatory();
   } else if (inputArr.includes("examine") && inputArr.includes("orange")) {
-      console.log(orangeTree.action())
-      playConservatory();
+    console.log(orangeTree.action());
+    playConservatory();
   } else if (inputArr.includes("take") && inputArr.includes("key")) {
-      player.inventory.push("A key");
-      console.log("\nYou have taken the key.");
-      conservatory.inventory.splice("A key");
-      playConservatory();
+    player.inventory.push("A key");
+    console.log("\nYou have taken the key.");
+    conservatory.inventory.splice("A key");
+    playConservatory();
   } else if (inputArr.includes("examine") && inputArr.includes("palm")) {
-      console.log(bambooPalm.action());
-      playConservatory();
+    console.log(bambooPalm.action());
+    playConservatory();
   } else if (inputArr.includes("examine") && inputArr.includes("cabinet")) {
-      console.log(cabinet.action());
-      playConservatory();
+    console.log(cabinet.action());
+    playConservatory();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
     console.log(kitchenMessage);
