@@ -298,27 +298,43 @@ let spiderPlant = new Item("Spider plant", "A spider plant", false, () => {
 
 // Ballroom inventory //////////////////////////////////////////////////////////////////////////
 
-let chandelier = new Item();
+let chandelier = new Item("Chandelier", "A chandelier", false, () => { 
+  console.log(
+    "\nWhat is my perfect crime? I break into Tiffany's at midnight. Do I go for the vault? No, I go for the chandelier. It's priceless. As I'm taking it down, a woman catches me. She tells me to stop. It's her father's business. She's Tiffany. I say no. We make love all night. In the morning, the cops come and I escape in one of their uniforms. I tell her to meet me in Mexico, but I go to Canada. I don't trust her. Besides, I like the cold. Thirty years later, I get a postcard. I have a son and he's the chief of police. This is where the story gets interesting. I tell Tiffany to meet me in Paris by the Trocadero. She's been waiting for me all these years. She's never taken another lover. I don't care. I don't show up. I go to Berlin. That's where I stashed the chandelier."
+  );
+});
 
-let ballroomTable = new Item();
+let ballroomTable = new Item("Ballroom table", "A ballroom table", false, () => {
+  console.log(
+    "\nJust a round table for holding drinks. Not much to see here. And who sits down at a ball anyway?"
+  );
+});
 
-let column = new Item();
+let column = new Item("Column", "A column", false, () => {
+  console.log(
+    "\nA stately column. Magnifique!"
+  );
+});
 
 // Library inventory /////////////////////////////////////////////////////////////////////////////
 
-let libBookshelf = new Item();
+let libBookshelf = new Item("Bookshelf", "A bookshelf", false, () => {
+  console.log(
+    "\nA large and ancient bookshelf, filled with numerous volumes of books, games, and little treasures."
+  )
+});
 
-let libFireplace = new Item();
+let libFireplace = new Item("Fireplace", "A fireplace", false, () => {
+  console.log(
+    "\nA warm, crackling fireplace. Who knows who's been feeding the fire, but it's orange glow illuminates the book case and casts all sorts of furtive shadows across an otherwise dark room (no windows, poor design, really)."
+  );
+});
 
-let libSofa = new Item();
-
-// Hall inventory ////////////////////////////////////////////////////////////////////////////////
-
-let hallPiano = new Item();
-
-let hallChandelier = new Item();
-
-let hallColumn = new Item();
+let libSofa = new Item("Sofa", "A sofa", false, () => {
+  console.log(
+    "\nA clubby, tufted leather Chesterfield. Though well worn from ages of use, it's a handsome sofa that strikes a bold silhouette and commands respect. Situated across from the fire, it would be a lovely place to read or take a nap."
+  );
+});
 
 const studyMessage = "\nYou have entered the study.";
 
