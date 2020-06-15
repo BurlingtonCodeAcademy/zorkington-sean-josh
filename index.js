@@ -136,7 +136,7 @@ let magnifyingGlass = new Item(
 // Kitchen inventory ///////////////////////////////////////////////////////////////////////////////
 
 let fryingPan = new Item(
-  "Pan",
+  "Frying Pan",
   "\nAn ordinary frying pan. Maybe you could cook up some eggs with it.",
   true,
   ""
@@ -170,6 +170,13 @@ let stove = new Item(
       console.log("\nYou do not have the required item to use this.");
     }
   }
+);
+
+let notepad = new Item(
+  "A notepad",
+  `\nYou open Mr. Body's note pad to find a list of various artworks that have gone missing from around the world in recent years, along with the words "Mr. Green" circled in bold! It appears as though Mr. Body was in the middle of writing an exposé that fingered Mr. Green as the prime suspect in all these missing artwork cases! I wonder if this is a clue...`,
+  true,
+  ''
 );
 
 // Study inventory /////////////////////////////////////////////////////////////////////////////////
@@ -365,11 +372,9 @@ let poolCue = new Item(
   "A nice, but unremarkable pool cue.",
   false,
   () => {
-    console.log(
-      `\n`
-    )
+    console.log(`\nA nice, but unremarkable pool cue.`);
   }
-)
+);
 
 // Room entry messages ////////////////////////////////////////////////////////////////////////////
 
@@ -391,17 +396,22 @@ const loungeMessage = "\nYou have entered the Lounge.";
 
 // Dialog assignments ////////////////////////////////////////////////////////////////////////////
 
-green.dialogOne = `\n"We were all enjoying some good after dinner conversation when the power in the house went out and then the lights came back on we heard a scream from the kitchen. When we all rushed in we discovered Mr. Body dead on the floor. Miss Scarlet was the first one to discover the body. She's pretty broken up about it. My cook is currently in the dining room with her consoling her. Maybe you should go speak to her."`;
+green.dialogueOne = `\n"We were all enjoying some good after dinner conversation when the power in the house went out and then the lights came back on we heard a scream from the kitchen. When we all rushed in we discovered Mr. Body dead on the floor. Miss Scarlet was the first one to discover the body. She's pretty broken up about it. My cook is currently in the dining room with her consoling her. Maybe you should go speak to her."`;
 
-scarlet.dialogOne = `\nShe lifts her head up from the table, still sobbing, to meet your eyes. Through a stream of tears she explains to you that when the lights went out she heard a thud in the kitchen and when the lights came back on she went to the kitchen to see what the commotion was about only to discover Mr. Body lying dead on the floor in a pool of his own blood. Perhaps Colonel Mustard or Mrs. Peacock have more to tell you. They can be found in the lounge.`;
+scarlet.dialogueOne = `\nShe lifts her head up from the table, still sobbing, to meet your eyes. Through a stream of tears she explains to you that when the lights went out she heard a thud in the kitchen and when the lights came back on she went to the kitchen to see what the commotion was about only to discover Mr. Body lying dead on the floor in a pool of his own blood. Perhaps Colonel Mustard or Mrs. Peacock have more to tell you. They can be found in the lounge.`;
 
-cook.dialogOne = `\n"Hello, inspector. What a horrible thing that has happened." You notice what appears to be a few drops of blood on his apron. Curious.`;
+cook.dialogueOne = `\n"Hello, inspector. What a horrible thing that has happened." You notice what appears to be a few drops of blood on his apron. Curious.`;
 
-mustard.dialogOne = `\nHello, inspector. I trust the investigation is going well? I was just in this lounge enjoying a after dinner cocktail with Mrs. Peacock here when the lights suddenly went out, isn't that right? When the came back on we heard a god-awful scream from the kitchen and rushed in to find Mr. Body on the floor.`;
+mustard.dialogueOne = `\nHello, inspector. I trust the investigation is going well? I was just in this lounge enjoying a after dinner cocktail with Mrs. Peacock here when the lights suddenly went out, isn't that right? When the came back on we heard a god-awful scream from the kitchen and rushed in to find Mr. Body on the floor.`;
 
-peacock.dialogOne = `\nWhat an absolutely dreadful night it has turned out to be. It was such a lovely evening up until the murder. Mr. Body, that poor soul. I never could quite get a read on him. He seemed to be pre-occupied looking around the house. I suspect he was an admirer of art. He seemed to be closely inspecting Mr. Green's artwork. Professor Plum may be able to give you more about the deceased. I saw the two of them speaking earlier in the evening. He is in the library.`;
+peacock.dialogueOne = `\nWhat an absolutely dreadful night it has turned out to be. It was such a lovely evening up until the murder. Mr. Body, that poor soul. I never could quite get a read on him. He seemed to be pre-occupied looking around the house. I suspect he was an admirer of art. He seemed to be closely inspecting Mr. Green's artwork. Professor Plum may be able to give you more about the deceased. I saw the two of them speaking earlier in the evening. He is in the library.`;
 
 plum.dialogueOne = `\nAh, inspector! I've been meaning to speak to you. Quite horrible, the recent events, quite horrible indeed! I've been collecting my thoughts here and trying to regain some sense of composure. The books, they always calm me down! And well, as I've been turning the last few hours over in my head, it did occur to me that I have borne witness to something that may be of interest to you. You see, earlier in the evening I was relaxing in a nook of the library, my attention captured completely by a lovely collection of English Romantic poetry. I must have been decently obscured from my position in the nook, because at one point Mr. Green and Mr. Body passed through and did not notice that I was here! They were in the midst of a dispute, and though they spoke in hushed voices I could tell from their tones that something was wrong. I could not clearly make out much of what they were saying, but I believe the argument had something to do with art. Eventually the conversation came to a close and Mr. Green left the room, after which Mr. Body pull out a notebook from his back pocket and begin writing in it furiously. Oh, I'm so embarrassed for spying, but I worried that it would stir up trouble if I revealed my presence. I certainly did not want to involve myself in whatever they were arguing about, either.\nIn any event, I suspect that the notebook Mr. Body was writing in may hold some clues as to the nature of their conversation, so it may be worth your while to see if you can find it. That's all the information I have for you, though I wish I could be of greater help!`;
+
+green.dialogueTwo = `\nHello again, inspector. I hope the investigation is coming along. A real shame what has happened to our friend Mr. Body. It seems like only hours ago we were enjoying a game of snooker in the Billiard Room.`;
+
+white.dialogueOne = `\nInspector, please tell me you'll get to the bottom of all this. My anxiety is at an all-time high knowing we have a killer in our midst! I never did get to speak to Mr. Body at all tonight and it's a shame! He seemed like such an insightful fellow. Mr. Green was just telling me all about how interested Mr. Body was in his artwork. I've never much had an eye for art myself, but I surely have enjoyed walking around his Conservatory and looking at Mr. Green's wonderful plants! I highly suggest you check them out!\n\n*Mr. Green's eyes dart to Mrs. White nervously...*`;
+
 
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -461,7 +471,7 @@ async function playKitchen() {
     console.log(body.extraDesc);
     playKitchen();
   } else if (inputArr.includes("speak") && inputArr.includes("green")) {
-    console.log(green.dialogOne);
+    console.log(green.dialogueOne);
 
     if (!player.hasSpokenTo.includes("green")) {
       player.hasSpokenTo.push("green");
@@ -536,13 +546,13 @@ async function playDining() {
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("cook")) {
-    console.log(cook.dialogOne);
+    console.log(cook.dialogueOne);
     if (!player.hasSpokenTo.includes("cook")) {
       player.hasSpokenTo.push("cook");
     }
     playDining();
   } else if (inputArr.includes("speak") && inputArr.includes("scarlet")) {
-    console.log(scarlet.dialogOne);
+    console.log(scarlet.dialogueOne);
     if (!player.hasSpokenTo.includes("scarlet")) {
       player.hasSpokenTo.push("scarlet");
     }
@@ -617,13 +627,13 @@ async function playLounge() {
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("mustard")) {
-    console.log(mustard.dialogOne);
+    console.log(mustard.dialogueOne);
     if (!player.hasSpokenTo.includes("mustard")) {
       player.hasSpokenTo.push("mustard");
     }
     playLounge();
   } else if (inputArr.includes("speak") && inputArr.includes("peacock")) {
-    console.log(peacock.dialogOne);
+    console.log(peacock.dialogueOne);
     if (!player.hasSpokenTo.includes("peacock")) {
       player.hasSpokenTo.push("peacock");
     }
@@ -867,7 +877,7 @@ async function playLibrary() {
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("plum")) {
-    console.log(plum.dialogOne);
+    console.log(plum.dialogueOne);
     if (!player.hasSpokenTo.includes("plum")) {
       player.hasSpokenTo.push("plum");
     }
@@ -963,10 +973,15 @@ async function playLibrary() {
 }
 
 async function playStudy() {
-  let input = await ask(">_ ");
+  let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("green")) {
+    console.log(green.dialogueTwo);
+    playStudy();
+  } else if (inputArr.includes("speak") && inputArr.includes("white")) {
+    console.log(white.dialogueOne);
+    playStudy();
   } else if (inputArr.includes("i")) {
     console.log("\nYou are currently in possesion of: " + player.inventory);
     playStudy();
