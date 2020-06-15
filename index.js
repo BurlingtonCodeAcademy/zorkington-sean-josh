@@ -416,9 +416,10 @@ white.dialogueOne = `\nInspector, please tell me you'll get to the bottom of all
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 function takeItem(room, item) {
+  console.log(`room inventory: ${room.inventory}, item: ${item}`)
   if (room.inventory.includes(item)) {
-    room.inventory = room.inventory.indexOf(item).splice;
-    player.inventory.push(item);
+    let takenItem = room.inventory.splice(room.inventory.indexOf(item), 1)
+    player.inventory.push(takenItem);
     console.log(`\nYou have picked up a ${item}`)
   } else {
     console.log("The room does not currently have this item")
@@ -426,17 +427,20 @@ function takeItem(room, item) {
 }
 
 function dropItem(room, item) {
+  console.log('drop item function running');
+  console.log('test');
+  console.log(player.inventory.includes(item));
   if (player.inventory.includes(item)) {
     player.inventory = player.inventory.indexOf(item).splice;
     room.inventory.push(item);
-    console.log(`\nYou have dropped ${item}`)
+    return console.log(`\nYou have dropped ${item}`)
   } else {
-    console.log("You are not currently carrying this item")
+    return console.log("You are not currently carrying this item")
   }
 }
 
 async function start() {
-  const welcomeMessage = `\nWelcome to our Murder Mystery! You are an inspector tasked with solving a murder that occured at a dinner party. The actions you may need to take are: (examine), (move), (speak), (take), (drop), (use), (go), (look around), (i)nventory and (solve).`;
+  const welcomeMessage = `\nWelcome to our Murder Mystery! You are an inspector tasked with solving a murder that occured at a dinner party. The actions you may need to take are: (examine), (move), (speak), (take), (drop), (use), (go), (i)nventory and (solve). If you would like an overview of the room you are in, use the (look around) command.`;
 
   console.log(welcomeMessage);
   let getName = await ask(`\nWhat is your name, Inspector? >_`);
