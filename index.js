@@ -22,16 +22,6 @@ let player = {
   location: [],
   hasSpokenTo: [],
   hasMoved: false,
-  examine() {},
-  move() {},
-  speak() {},
-  take() {},
-  drop() {},
-  use() {},
-  go() {},
-  lookAround() {},
-  lookCloser() {},
-  solve() {},
 };
 
 let characterFactory = (name, location) => {
