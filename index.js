@@ -117,7 +117,7 @@ let ballroom = roomFactory(
 
 let library = roomFactory(
   "The Library",
-  "\nYou see a large library with many books on the shelf. Professor Plum sits on a sofa with an open book on his lap. You can see that the Library is connected to the Ballroom and the Study.",
+  "\nYou see a large library with many books on the shelf. The room is dark, save for the light from the crackling fireplace. Nothing much else of interests it seems. You can see that the Library is connected to the Ballroom and the Study.",
   "A bookshelf",
   "A fireplace",
   "A sofa"
@@ -321,26 +321,28 @@ let ballroomTable = new Item(
 );
 
 let column = new Item("Column", "A column", false, () => {
-  console.log("\nA stately column. Magnifique!");
+  console.log(
+    "\nA stately column. Magnifique! But not much to do with it other than stare, and I dunno, maybe wax poetic about ancient Greece?"
+  );
 });
 
 // Library inventory /////////////////////////////////////////////////////////////////////////////
 
 let libBookshelf = new Item("Bookshelf", "A bookshelf", false, () => {
   console.log(
-    "\nA large and ancient bookshelf, filled with numerous volumes of books, games, and little treasures."
-  );
+    "\nA large and ancient bookshelf looms before you, filled with numerous volumes of books, games, and little treasures. You pick the first book that catches your eye, and... what.. no way! A signed copy of The Return of the King?! For a moment, you consider tucking this away for your personal collection... but, sigh- if someone sees you might lose your investigator's license. Ah well, you can dream. Seriously though, how did Mr. Green acquire that...?"
+  )
 });
 
 let libFireplace = new Item("Fireplace", "A fireplace", false, () => {
   console.log(
-    "\nA warm, crackling fireplace. Who knows who's been feeding the fire, but it's orange glow illuminates the book case and casts all sorts of furtive shadows across an otherwise dark room (no windows, poor design, really)."
+    "\nYou gaze at the warm, crackling fireplace. Who knows who's been feeding the fire, but it's orange glow illuminates the book case and casts all sorts of furtive shadows across an otherwise dark room (no windows, poor design, really). Picking up a piece of wood, you add it the pile, causing the flame to briefly grow a little higher. A glimpse of hope in the dark. "
   );
 });
 
 let libSofa = new Item("Sofa", "A sofa", false, () => {
   console.log(
-    "\nA clubby, tufted leather Chesterfield. Though well worn from ages of use, it's a handsome sofa that strikes a bold silhouette and commands respect. Situated across from the fire, it would be a lovely place to read or take a nap."
+    "\nAha! A clubby, tufted leather Chesterfield. Though well worn from ages of use, it's a handsome sofa that strikes a bold silhouette and commands respect. Situated across from the fire, it would be a lovely place to read or take a nap... *you sit down and gaze longingly into the fire for a moment* *10 minutes pass* Hmmmm, you could easily got lost in a trance here... best to move on!"
   );
 });
 
@@ -374,11 +376,13 @@ mustard.dialogOne = `\nHello, inspector. I trust the investigation is going well
 
 peacock.dialogOne = `\nWhat an absolutely dreadful night it has turned out to be. It was such a lovely evening up until the murder. Mr. Body, that poor soul. I never could quite get a read on him. He seemed to be pre-occupied looking around the house. I suspect he was an admirer of art. He seemed to be closely inspecting Mr. Green's artwork. Professor Plum may be able to give you more about the deceased. I saw the two of them speaking earlier in the evening. He is in the library.`;
 
+plum.dialogueOne = `\nAh, inspector! I've been meaning to speak to you. Quite horrible, the recent events, quite horrible indeed! I've been collecting my thoughts here and trying to regain some sense of composure. The books, they always calm me down! And well, as I've been turning the last few hours over in my head, it did occur to me that I was witness to something that may be of interest to you. You see, earlier in the evening I was relaxing in a nook of the library, my attention captured entirely by a lovely collection of English Romantic poetry. I must have been decently obscured from my position, because at one point Mr. Green and Mr. Body passed through and I don't believe that they noticed I was here! They were in the midst of a dispute, and though they spoke in hushed voices I could tell from their tones that something was wrong. I couldn't clearly make out much of what they were saying at all, but I believe the argument had something to do with art. Eventually the conversation came to a close, and Mr. Green left the room. Then, I saw Mr. Body pull out a notebook from his back pocket and begin writing in it furiously. Oh, I'm so embarrassed for spying, but I worried that it would stir up trouble if I revealed that I overheard them. Furthermore whatever they were arguing about was not something I wanted to involve myself in. In any event, I suspect that the notebook Mr. Body was writing in may hold some clues as to the nature of their conversation, so it may be worth your while to see if you can find it. That's all the information I have for you, though I wish I could be of greater help!`;
+
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 async function start() {
-  const welcomeMessage = `\nWelcome to our Murder Mystery! You are an inspector tasked with solving a murder that occured at a dinner party. The actions you may need to take are: (examine), (move), (speak), (take), (drop), (use), (go), (look around), (look closer) and (solve).`;
+  const welcomeMessage = `\nWelcome to our Murder Mystery! You are an inspector tasked with solving a murder that occured at a dinner party. The actions you may need to take are: (examine), (move), (speak), (take), (drop), (use), (go), (look around), (i)nventory and (solve).`;
 
   console.log(welcomeMessage);
   let getName = await ask(`\nWhat is your name, Inspector? >_`);
@@ -395,8 +399,9 @@ async function start() {
 
     console.log(arrivalMessage);
     playKitchen();
-  }
+  } 
 }
+
 
 async function playKitchen() {
   let input = await ask("\n>_ ");
@@ -404,6 +409,9 @@ async function playKitchen() {
 
   if (inputArr.includes("examine") && inputArr.includes("body")) {
     console.log(body.desc);
+    playKitchen();
+  } else if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory)
     playKitchen();
   } else if (inputArr.includes("move") && inputArr.includes("body")) {
     deadBody.action();
@@ -455,8 +463,12 @@ async function playKitchen() {
     player.location = "The Study";
     console.log(studyMessage);
     playStudy();
+  } else if (inputArr.includes("go") && inputArr.includes("lounge")) {
+    player.location = "The Lounge";
+    console.log(loungeMessage);
+    playLounge();
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
-    console.log(kitchen.desc + " Items include: " + kitchen.inventory);
+    console.log(kitchen.desc + "\n\nItems include: " + kitchen.inventory);
     playKitchen();
   } else {
     console.log(
@@ -482,8 +494,11 @@ async function playDining() {
       player.hasSpokenTo.push("scarlet");
     }
     playDining();
+  } else if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory)
+    playDining();
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
-    console.log(diningRoom.desc + " Items include: " + diningRoom.inventory);
+    console.log(diningRoom.desc + "\n\nItems include: " + diningRoom.inventory);
     playDining();
   } else if (inputArr.includes("examine") && inputArr.includes("chair")) {
     console.log(diningChair.action());
@@ -542,6 +557,9 @@ async function playLounge() {
       player.hasSpokenTo.push("peacock");
     }
     playLounge();
+  } else if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory)
+    playLounge();
   } else if (inputArr.includes("sit") && inputArr.includes("couch")) {
     console.log(loungeChaise.action());
     playLounge();
@@ -550,6 +568,9 @@ async function playLounge() {
     playLounge();
   } else if (inputArr.includes("sit") && inputArr.includes("chair")) {
     console.log(loungeChair.action());
+    playLounge();
+  } else if (inputArr.includes("look") && inputArr.includes("around")) {
+    console.log(lounge.desc + "\n\nItems include: " + lounge.inventory)
     playLounge();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
@@ -607,6 +628,9 @@ async function playConservatory() {
       console.log("You lack a piece of evidence to solve the murder!");
       playConservatory();
     }
+  } else if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory)
+    playConservatory();
   } else if (inputArr.includes("examine") && inputArr.includes("spider")) {
     console.log(spiderPlant.action());
     playConservatory();
@@ -623,6 +647,9 @@ async function playConservatory() {
     playConservatory();
   } else if (inputArr.includes("examine") && inputArr.includes("cabinet")) {
     console.log(cabinet.action());
+    playConservatory();
+  } else if (inputArr.includes("look") && inputArr.includes("around")) {
+    console.log(conservatory.desc + "\n\nItems include: " + conservatory.inventory)
     playConservatory();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
@@ -659,7 +686,9 @@ async function playBallroom() {
   let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
 
-  if (inputArr.includes("speak") && inputArr.includes("")) {
+  if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory)
+    playBallroom();
   }
 }
 
@@ -667,15 +696,51 @@ async function playLibrary() {
   let input = await ask(">_ ");
   let inputArr = input.toLowerCase().split(" ");
 
-  if (inputArr.includes("speak") && inputArr.includes("")) {
+  if (inputArr.includes("speak") && inputArr.includes("plum")) {
+    console.log(plum.dialogOne);
+    if (!player.hasSpokenTo.includes("plum")) {
+      player.hasSpokenTo.push("plum");
+    }
+    playLibrary();
   }
-}
-
-async function playHall() {
-  let input = await ask(">_ ");
-  let inputArr = input.toLowerCase().split(" ");
-
-  if (inputArr.includes("speak") && inputArr.includes("")) {
+  else if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory)
+    playLibrary();
+  }
+  else if (inputArr.includes("look") && inputArr.includes("around")) {
+    console.log(
+      "\n" + library.desc + " Items include: " + library.inventory
+    );
+    playLibrary();
+  }
+  else if ((inputArr.includes("examine") && inputArr.includes("bookshelf")) || (inputArr.includes("examine") && inputArr.includes("book shelf"))){
+    console.log(libBookshelf.desc);
+    playLibrary();
+  } 
+  else if ((inputArr.includes("examine") && inputArr.includes("fireplace")) || (inputArr.includes("examine") && inputArr.includes("fire place"))){
+    console.log(libFireplace.desc);
+    playLibrary();
+  } 
+  else if (inputArr.includes("examine") && inputArr.includes("sofa")) {
+    console.log(libSofa.desc);
+    playLibrary();
+  } 
+  else if ((inputArr.includes("use") && inputArr.includes("bookshelf")) || (inputArr.includes("examine") && inputArr.includes("book shelf"))){
+    console.log(libBookshelf.action);
+    playLibrary();
+  } 
+  else if ((inputArr.includes("use") && inputArr.includes("fireplace")) || (inputArr.includes("examine") && inputArr.includes("fire place"))){
+    console.log(libFireplace.action);
+    playLibrary();
+  } 
+  else if (inputArr.includes("use") && inputArr.includes("sofa")) {
+    console.log(libSofa.action);
+    playLibrary();
+  } 
+  else {
+    console.log(
+      `\nI don't understand what you want and/or you can't do that in this room...`
+    );
   }
 }
 
@@ -683,7 +748,9 @@ async function playBallroom() {
   let input = await ask(">_ ");
   let inputArr = input.toLowerCase().split(" ");
 
-  if (inputArr.includes("speak") && inputArr.includes("")) {
+  if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory)
+    playBallroom();
   }
 }
 
@@ -692,12 +759,21 @@ async function playStudy() {
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("green")) {
+  } 
+  else if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory)
+    playStudy();
   }
 }
 
 async function playBilliardRoom() {
   let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
+
+  if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory)
+    playBilliardRoom();
+  }
 }
 
 // Launching game ////////////////////////////////////////////////////////////////////////////
