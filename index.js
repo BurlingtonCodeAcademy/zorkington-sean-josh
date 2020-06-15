@@ -891,13 +891,7 @@ async function playBallroom() {
     player.location = "The Conservatory";
     console.log(conservatoryMessage);
     playConservatory();
-  } else {
-    console.log(
-      `\nI don't understand what you want and/or you can't do that in this room...`
-    );
-    playBallroom();
-  }
-  else if (inputArr.includes("drop") || inputArr.includes("pan")) {
+  } else if (inputArr.includes("drop") || inputArr.includes("pan")) {
     if (player.inventory.includes("Frying Pan")) {
       player.inventory = player.inventory.indexOf("Frying Pan").splice;
       ballroom.inventory.push("Frying Pan");
@@ -924,6 +918,11 @@ async function playBallroom() {
         console.log('You are not currently carrying this item');
       }
       playBallroom();
+  } else {
+    console.log(
+      `\nI don't understand what you want and/or you can't do that in this room...`
+    );
+    playBallroom();
   }
 }
 
@@ -973,7 +972,6 @@ async function playLibrary() {
   } else if (inputArr.includes("use") && inputArr.includes("sofa")) {
     console.log(libSofa.action);
     playLibrary();
-<<<<<<< HEAD
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
     console.log(kitchenMessage);
@@ -1002,12 +1000,6 @@ async function playLibrary() {
     player.location = "The Conservatory";
     console.log(conservatoryMessage);
     playConservatory();
-  } else {
-    console.log(
-      `\nI don't understand what you want and/or you can't do that in this room...`
-    );
-    playLibrary();
-=======
   } else if (inputArr.includes("drop") || inputArr.includes("pan")) {
     if (player.inventory.includes("Frying Pan")) {
       player.inventory = player.inventory.indexOf("Frying Pan").splice;
@@ -1040,6 +1032,7 @@ async function playLibrary() {
     console.log(
       `\nI don't understand what you want and/or you can't do that in this room...`
     );
+    playLibrary();
   }
 }
 
@@ -1048,7 +1041,6 @@ async function playBallroom() {
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("")) {
->>>>>>> josh
   }
 }
 
