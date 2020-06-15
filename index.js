@@ -151,6 +151,7 @@ let deadBody = new Item(
       `\nYou roll over the body to find a note pad partially sticking out of Mr. Body's back pocket...`
     );
     player.hasMoved = true;
+    kitchen.inventory.push("Notebook");
   }
 );
 
@@ -172,9 +173,9 @@ let stove = new Item(
   }
 );
 
-let notepad = new Item(
-  "A notepad",
-  `\nYou open Mr. Body's note pad to find a list of various artworks that have gone missing from around the world in recent years, along with the words "Mr. Green" circled in bold! It appears as though Mr. Body was in the middle of writing an exposé that fingered Mr. Green as the prime suspect in all these missing artwork cases! I wonder if this is a clue...`,
+let notebook = new Item(
+  "A notebook",
+  `\nYou open Mr. Body's notebook to find a list of various artworks that have gone missing from around the world in recent years, along with the words "Mr. Green" circled in bold! It appears as though Mr. Body was in the middle of writing an exposé that fingered Mr. Green as the prime suspect in all these missing artwork cases! I wonder if this is a clue...`,
   true,
   ''
 );
