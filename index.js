@@ -331,7 +331,7 @@ let column = new Item("Column", "A column", false, () => {
 let libBookshelf = new Item("Bookshelf", "A bookshelf", false, () => {
   console.log(
     "\nA large and ancient bookshelf looms before you, filled with numerous volumes of books, games, and little treasures. You pick the first book that catches your eye, and... what.. no way! A signed copy of The Return of the King?! For a moment, you consider tucking this away for your personal collection... but, sigh- if someone sees you might lose your investigator's license. Ah well, you can dream. Seriously though, how did Mr. Green acquire that...?"
-  )
+  );
 });
 
 let libFireplace = new Item("Fireplace", "A fireplace", false, () => {
@@ -345,6 +345,41 @@ let libSofa = new Item("Sofa", "A sofa", false, () => {
     "\nAha! A clubby, tufted leather Chesterfield. Though well worn from ages of use, it's a handsome sofa that strikes a bold silhouette and commands respect. Situated across from the fire, it would be a lovely place to read or take a nap... *you sit down and gaze longingly into the fire for a moment* *10 minutes pass* Hmmmm, you could easily got lost in a trance here... best to move on!"
   );
 });
+
+// Billiard Room inventory ////////////////////////////////////////////////////////////////////////
+
+let billiardTable = new Item(
+  "Billiard Table",
+  "A billiard table.",
+  false,
+  () => {
+    console.log(
+      `\nYou set your eyes upon a luxuriously built billiard table with what appear to be beautifully hand-crafted leather pockets.`
+    );
+  }
+);
+
+let billiardBalls = new Item(
+  "Billiard Balls",
+  "A set of beautiful billiard balls.",
+  false,
+  () => {
+    console.log(
+      `\nYou look upon the table to find billiard balls scattered across the table as if a game in progress had been abandoned. As you count up the balls you notice that one is missing...`
+    );
+  }
+);
+
+let poolCue = new Item(
+  "A billiard cue",
+  "A nice, but unremarkable pool cue.",
+  false,
+  () => {
+    console.log(
+      `\n`
+    )
+  }
+)
 
 // Room entry messages ////////////////////////////////////////////////////////////////////////////
 
@@ -399,9 +434,8 @@ async function start() {
 
     console.log(arrivalMessage);
     playKitchen();
-  } 
+  }
 }
-
 
 async function playKitchen() {
   let input = await ask("\n>_ ");
@@ -411,7 +445,7 @@ async function playKitchen() {
     console.log(body.desc);
     playKitchen();
   } else if (inputArr.includes("i")) {
-    console.log("\nYou are currently in possesion of: " + player.inventory)
+    console.log("\nYou are currently in possesion of: " + player.inventory);
     playKitchen();
   } else if (inputArr.includes("move") && inputArr.includes("body")) {
     deadBody.action();
@@ -467,6 +501,14 @@ async function playKitchen() {
     player.location = "The Lounge";
     console.log(loungeMessage);
     playLounge();
+  } else if (inputArr.includes("go") && inputArr.includes("billiard")) {
+    player.location = "The Billiard Room";
+    console.log(billiardMessage);
+    playBilliardRoom();
+  } else if (inputArr.includes("go") && inputArr.includes("ballroom")) {
+    player.location = "The Ballroom";
+    console.log(ballroomMessage);
+    playBallroom();
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
     console.log(kitchen.desc + "\n\nItems include: " + kitchen.inventory);
     playKitchen();
@@ -495,7 +537,7 @@ async function playDining() {
     }
     playDining();
   } else if (inputArr.includes("i")) {
-    console.log("\nYou are currently in possesion of: " + player.inventory)
+    console.log("\nYou are currently in possesion of: " + player.inventory);
     playDining();
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
     console.log(diningRoom.desc + "\n\nItems include: " + diningRoom.inventory);
@@ -558,7 +600,7 @@ async function playLounge() {
     }
     playLounge();
   } else if (inputArr.includes("i")) {
-    console.log("\nYou are currently in possesion of: " + player.inventory)
+    console.log("\nYou are currently in possesion of: " + player.inventory);
     playLounge();
   } else if (inputArr.includes("sit") && inputArr.includes("couch")) {
     console.log(loungeChaise.action());
@@ -570,7 +612,7 @@ async function playLounge() {
     console.log(loungeChair.action());
     playLounge();
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
-    console.log(lounge.desc + "\n\nItems include: " + lounge.inventory)
+    console.log(lounge.desc + "\n\nItems include: " + lounge.inventory);
     playLounge();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
@@ -629,7 +671,7 @@ async function playConservatory() {
       playConservatory();
     }
   } else if (inputArr.includes("i")) {
-    console.log("\nYou are currently in possesion of: " + player.inventory)
+    console.log("\nYou are currently in possesion of: " + player.inventory);
     playConservatory();
   } else if (inputArr.includes("examine") && inputArr.includes("spider")) {
     console.log(spiderPlant.action());
@@ -649,7 +691,9 @@ async function playConservatory() {
     console.log(cabinet.action());
     playConservatory();
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
-    console.log(conservatory.desc + "\n\nItems include: " + conservatory.inventory)
+    console.log(
+      conservatory.desc + "\n\nItems include: " + conservatory.inventory
+    );
     playConservatory();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
@@ -679,6 +723,7 @@ async function playConservatory() {
     console.log(
       `\nI don't understand what you want and/or you can't do that in this room...`
     );
+    playConservatory();
   }
 }
 
@@ -687,13 +732,58 @@ async function playBallroom() {
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("i")) {
-    console.log("\nYou are currently in possesion of: " + player.inventory)
+    console.log("\nYou are currently in possesion of: " + player.inventory);
+    playBallroom();
+  } else if (inputArr.includes("look") && inputArr.includes("around")) {
+    console.log(ballroom.desc + "\n\nItems include: " + ballroom.inventory);
+    playBallroom();
+  } else if (inputArr.includes("examine") && inputArr.includes("table")) {
+    console.log(ballroomTable.action());
+    playBallroom();
+  } else if (inputArr.includes("examine") && inputArr.includes("chandelier")) {
+    console.log(chandelier.action());
+    playBallroom();
+  } else if (inputArr.includes("examine") && inputArr.includes("column")) {
+    console.log(column.action());
+    playBallroom();
+  } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
+    player.location = "The Kitchen";
+    console.log(kitchenMessage);
+    playKitchen();
+  } else if (inputArr.includes("go") && inputArr.includes("dining")) {
+    player.location = "The Dining Room";
+    console.log(diningMessage);
+    playDining();
+  } else if (inputArr.includes("go") && inputArr.includes("library")) {
+    player.location = "The Library";
+    console.log(libraryMessage);
+    playLibrary();
+  } else if (inputArr.includes("go") && inputArr.includes("study")) {
+    player.location = "The Study";
+    console.log(studyMessage);
+    playStudy();
+  } else if (inputArr.includes("go") && inputArr.includes("billiard")) {
+    player.location = "The Billiard Room";
+    console.log(billiardMessage);
+    playBilliardRoom();
+  } else if (inputArr.includes("go") && inputArr.includes("lounge")) {
+    player.location = "The Lounge";
+    console.log(loungeMessage);
+    playLounge();
+  } else if (inputArr.includes("go") && inputArr.includes("conservatory")) {
+    player.location = "The Conservatory";
+    console.log(conservatoryMessage);
+    playConservatory();
+  } else {
+    console.log(
+      `\nI don't understand what you want and/or you can't do that in this room...`
+    );
     playBallroom();
   }
 }
 
 async function playLibrary() {
-  let input = await ask(">_ ");
+  let input = await ask("\n>_ ");
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("plum")) {
@@ -702,55 +792,75 @@ async function playLibrary() {
       player.hasSpokenTo.push("plum");
     }
     playLibrary();
-  }
-  else if (inputArr.includes("i")) {
-    console.log("\nYou are currently in possesion of: " + player.inventory)
+  } else if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory);
     playLibrary();
-  }
-  else if (inputArr.includes("look") && inputArr.includes("around")) {
-    console.log(
-      "\n" + library.desc + " Items include: " + library.inventory
-    );
+  } else if (inputArr.includes("look") && inputArr.includes("around")) {
+    console.log(library.desc + "\n\nItems include: " + library.inventory);
     playLibrary();
-  }
-  else if ((inputArr.includes("examine") && inputArr.includes("bookshelf")) || (inputArr.includes("examine") && inputArr.includes("book shelf"))){
+  } else if (
+    (inputArr.includes("examine") && inputArr.includes("bookshelf")) ||
+    (inputArr.includes("examine") && inputArr.includes("book shelf"))
+  ) {
     console.log(libBookshelf.desc);
     playLibrary();
-  } 
-  else if ((inputArr.includes("examine") && inputArr.includes("fireplace")) || (inputArr.includes("examine") && inputArr.includes("fire place"))){
+  } else if (
+    (inputArr.includes("examine") && inputArr.includes("fireplace")) ||
+    (inputArr.includes("examine") && inputArr.includes("fire place"))
+  ) {
     console.log(libFireplace.desc);
     playLibrary();
-  } 
-  else if (inputArr.includes("examine") && inputArr.includes("sofa")) {
+  } else if (inputArr.includes("examine") && inputArr.includes("sofa")) {
     console.log(libSofa.desc);
     playLibrary();
-  } 
-  else if ((inputArr.includes("use") && inputArr.includes("bookshelf")) || (inputArr.includes("examine") && inputArr.includes("book shelf"))){
+  } else if (
+    (inputArr.includes("use") && inputArr.includes("bookshelf")) ||
+    (inputArr.includes("examine") && inputArr.includes("book shelf"))
+  ) {
     console.log(libBookshelf.action);
     playLibrary();
-  } 
-  else if ((inputArr.includes("use") && inputArr.includes("fireplace")) || (inputArr.includes("examine") && inputArr.includes("fire place"))){
+  } else if (
+    (inputArr.includes("use") && inputArr.includes("fireplace")) ||
+    (inputArr.includes("examine") && inputArr.includes("fire place"))
+  ) {
     console.log(libFireplace.action);
     playLibrary();
-  } 
-  else if (inputArr.includes("use") && inputArr.includes("sofa")) {
+  } else if (inputArr.includes("use") && inputArr.includes("sofa")) {
     console.log(libSofa.action);
     playLibrary();
-  } 
-  else {
+  } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
+    player.location = "The Kitchen";
+    console.log(kitchenMessage);
+    playKitchen();
+  } else if (inputArr.includes("go") && inputArr.includes("dining")) {
+    player.location = "The Dining Room";
+    console.log(diningMessage);
+    playDining();
+  } else if (inputArr.includes("go") && inputArr.includes("ballroom")) {
+    player.location = "The Ballroom";
+    console.log(ballroomMessage);
+    playBallroom();
+  } else if (inputArr.includes("go") && inputArr.includes("study")) {
+    player.location = "The Study";
+    console.log(studyMessage);
+    playStudy();
+  } else if (inputArr.includes("go") && inputArr.includes("billiard")) {
+    player.location = "The Billiard Room";
+    console.log(billiardMessage);
+    playBilliardRoom();
+  } else if (inputArr.includes("go") && inputArr.includes("lounge")) {
+    player.location = "The Lounge";
+    console.log(loungeMessage);
+    playLounge();
+  } else if (inputArr.includes("go") && inputArr.includes("conservatory")) {
+    player.location = "The Conservatory";
+    console.log(conservatoryMessage);
+    playConservatory();
+  } else {
     console.log(
       `\nI don't understand what you want and/or you can't do that in this room...`
     );
-  }
-}
-
-async function playBallroom() {
-  let input = await ask(">_ ");
-  let inputArr = input.toLowerCase().split(" ");
-
-  if (inputArr.includes("i")) {
-    console.log("\nYou are currently in possesion of: " + player.inventory)
-    playBallroom();
+    playLibrary();
   }
 }
 
@@ -759,9 +869,41 @@ async function playStudy() {
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("green")) {
-  } 
-  else if (inputArr.includes("i")) {
-    console.log("\nYou are currently in possesion of: " + player.inventory)
+  } else if (inputArr.includes("i")) {
+    console.log("\nYou are currently in possesion of: " + player.inventory);
+    playStudy();
+  } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
+    player.location = "The Kitchen";
+    console.log(kitchenMessage);
+    playKitchen();
+  } else if (inputArr.includes("go") && inputArr.includes("dining")) {
+    player.location = "The Dining Room";
+    console.log(diningMessage);
+    playDining();
+  } else if (inputArr.includes("go") && inputArr.includes("library")) {
+    player.location = "The Library";
+    console.log(libraryMessage);
+    playLibrary();
+  } else if (inputArr.includes("go") && inputArr.includes("ballroom")) {
+    player.location = "The Ballroom";
+    console.log(ballroomMessage);
+    playBallroom();
+  } else if (inputArr.includes("go") && inputArr.includes("billiard")) {
+    player.location = "The Billiard Room";
+    console.log(billiardMessage);
+    playBilliardRoom();
+  } else if (inputArr.includes("go") && inputArr.includes("lounge")) {
+    player.location = "The Lounge";
+    console.log(loungeMessage);
+    playLounge();
+  } else if (inputArr.includes("go") && inputArr.includes("conservatory")) {
+    player.location = "The Conservatory";
+    console.log(conservatoryMessage);
+    playConservatory();
+  } else {
+    console.log(
+      `\nI don't understand what you want and/or you can't do that in this room...`
+    );
     playStudy();
   }
 }
@@ -771,7 +913,54 @@ async function playBilliardRoom() {
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("i")) {
-    console.log("\nYou are currently in possesion of: " + player.inventory)
+    console.log("\nYou are currently in possesion of: " + player.inventory);
+    playBilliardRoom();
+  } else if (inputArr.includes("look") && inputArr.includes("around")) {
+    console.log(
+      billiardRoom.desc + "\n\nItems include: " + billiardRoom.inventory
+    );
+    playBilliardRoom();
+  } else if (inputArr.includes("examine") && inputArr.includes("balls")) {
+    console.log(billiardBalls.action());
+    playBilliardRoom();
+  } else if (inputArr.includes("examine") && inputArr.includes("table")) {
+    console.log(billiardTable.action());
+    playBilliardRoom();
+  } else if (inputArr.includes("examine") && inputArr.includes("cue")) {
+    console.log(poolCue.action());
+    playBilliardRoom();
+  } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
+    player.location = "The Kitchen";
+    console.log(kitchenMessage);
+    playKitchen();
+  } else if (inputArr.includes("go") && inputArr.includes("dining")) {
+    player.location = "The Dining Room";
+    console.log(diningMessage);
+    playDining();
+  } else if (inputArr.includes("go") && inputArr.includes("library")) {
+    player.location = "The Library";
+    console.log(libraryMessage);
+    playLibrary();
+  } else if (inputArr.includes("go") && inputArr.includes("study")) {
+    player.location = "The Study";
+    console.log(studyMessage);
+    playStudy();
+  } else if (inputArr.includes("go") && inputArr.includes("ballroom")) {
+    player.location = "The Ballroom";
+    console.log(ballroomMessage);
+    playBallroom();
+  } else if (inputArr.includes("go") && inputArr.includes("lounge")) {
+    player.location = "The Lounge";
+    console.log(loungeMessage);
+    playLounge();
+  } else if (inputArr.includes("go") && inputArr.includes("conservatory")) {
+    player.location = "The Conservatory";
+    console.log(conservatoryMessage);
+    playConservatory();
+  } else {
+    console.log(
+      `\nI don't understand what you want and/or you can't do that in this room...`
+    );
     playBilliardRoom();
   }
 }
