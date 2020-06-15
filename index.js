@@ -275,7 +275,7 @@ let orangeTree = new Item("Orange tree", "An orange tree", false, () => {
   console.log(
     "\nLooking both ways to make sure you aren't being watched, you determine you are alone. You pluck an orange, and damn - this is one seriously fresh orange! Minutes later, and you've finished the whole thing. But where to discard the peel? As you look around for a waste bin you notice something shiny. It appears to be a key."
   );
-  conservatory.inventory.push("A key");
+  conservatory.inventory.push("Key");
 });
 
 let bambooPalm = new Item("Bamboo palm", "A bamboo palm", false, () => {
@@ -425,9 +425,9 @@ function takeItem(room, item) {
   }
 }
 
-async function dropItem(room, item) {
+function dropItem(room, item) {
   if (player.inventory.includes(item)) {
-    player.inventory = player.inventory.indexOf(item).splice;
+    player.inventory.splice(player.inventory.indexOf(item), 1);
     room.inventory.push(item);
     console.log(`\nYou have dropped ${item}`);
   } else {
