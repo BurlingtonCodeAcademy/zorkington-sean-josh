@@ -177,7 +177,7 @@ let notebook = new Item(
   "A notebook",
   `\nYou open Mr. Body's notebook to find a list of various artworks that have gone missing from around the world in recent years, along with the words "Mr. Green" circled in bold! It appears as though Mr. Body was in the middle of writing an exposé that fingered Mr. Green as the prime suspect in all these missing artwork cases! I wonder if this is a clue...`,
   true,
-  ''
+  ""
 );
 
 // Study inventory /////////////////////////////////////////////////////////////////////////////////
@@ -413,26 +413,25 @@ green.dialogueTwo = `\nHello again, inspector. I hope the investigation is comin
 
 white.dialogueOne = `\nInspector, please tell me you'll get to the bottom of all this. My anxiety is at an all-time high knowing we have a killer in our midst! I never did get to speak to Mr. Body at all tonight and it's a shame! He seemed like such an insightful fellow. Mr. Green was just telling me all about how interested Mr. Body was in his artwork. I've never much had an eye for art myself, but I surely have enjoyed walking around his Conservatory and looking at Mr. Green's wonderful plants! I highly suggest you check them out!\n\n*Mr. Green's eyes dart to Mrs. White nervously...*`;
 
-
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 function takeItem(room, item) {
   if (room.inventory.includes(item)) {
     room.inventory = room.inventory.indexOf(item).splice;
     player.inventory.push(item);
-    console.log(`\nYou have picked up a ${item}`)
+    console.log(`\nYou have picked up a ${item}`);
   } else {
-    console.log("The room does not currently have this item")
+    console.log("The room does not currently have this item");
   }
 }
 
-function dropItem(room, item) {
+async function dropItem(room, item) {
   if (player.inventory.includes(item)) {
     player.inventory = player.inventory.indexOf(item).splice;
     room.inventory.push(item);
-    console.log(`\nYou have dropped ${item}`)
+    console.log(`\nYou have dropped ${item}`);
   } else {
-    console.log("You are not currently carrying this item")
+    console.log("You are not currently carrying this item");
   }
 }
 
@@ -479,30 +478,38 @@ async function playKitchen() {
     }
     playKitchen();
   } else if (inputArr.includes("take") && inputArr.includes("pan")) {
-      takeItem(kitchen, "Frying Pan");
-      playKitchen();
+    takeItem(kitchen, "Frying Pan");
+    playKitchen();
   } else if (inputArr.includes("take") && inputArr.includes("notebook")) {
-      if(player.hasMoved === true) {
-        takeItem(kitchen, "Notebook")
-      } else {
-        console.log("There is no notebook to be seen.")
-      }
+    if (player.hasMoved === true) {
+      takeItem(kitchen, "Notebook");
+    } else {
+      console.log("There is no notebook to be seen.");
+    }
+    playKitchen();
+  } else if (inputArr.includes("examine") && inputArr.includes("notebook")) {
+    if (player.inventory.includes("Notebook")) {
+      console.log(notebook.desc);
       playKitchen();
+    } else {
+      console.log("You are not in possesion of a notebook.");
+      playKitchen();
+    }
   } else if (inputArr.includes("take") && inputArr.includes("key")) {
-      takeItem(kitchen, "Key");
-      playKitchen();
+    takeItem(kitchen, "Key");
+    playKitchen();
   } else if (inputArr.includes("use") && inputArr.includes("stove")) {
     stove.action();
     playKitchen();
   } else if (inputArr.includes("drop") && inputArr.includes("pan")) {
     dropItem(kitchen, "Frying Pan");
     playKitchen();
-  }  else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
-      dropItem(kitchen, "Frying Pan")
-      playKitchen();
-  }  else if (inputArr.includes("drop") && inputArr.includes("key")) {
-      dropItem(kitchen, "Key");
-      playKitchen();
+  } else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
+    dropItem(kitchen, "Notebook");
+    playKitchen();
+  } else if (inputArr.includes("drop") && inputArr.includes("key")) {
+    dropItem(kitchen, "Key");
+    playKitchen();
   } else if (inputArr.includes("go") && inputArr.includes("dining")) {
     player.location = "The Dining Room";
     console.log(diningMessage);
@@ -574,24 +581,24 @@ async function playDining() {
     diningChair.action();
     playDining();
   } else if (inputArr.includes("take") && inputArr.includes("pan")) {
-      takeItem(diningRoom, "Frying Pan");
-      playDining();
+    takeItem(diningRoom, "Frying Pan");
+    playDining();
   } else if (inputArr.includes("take") && inputArr.includes("notebook")) {
-      takeItem(diningRoom, "Notebook");
-      playDining();
+    takeItem(diningRoom, "Notebook");
+    playDining();
   } else if (inputArr.includes("take") && inputArr.includes("key")) {
-      takeItem(diningRoom, "Key");
-      playDining();
-  }  else if (inputArr.includes("drop") && inputArr.includes("pan")) {
-      dropItem(diningRoom, "Frying Pan")
-      playDining();
-  }  else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
-        dropItem(diningRoom, "Notebook")
-        playDining();
-  }  else if (inputArr.includes("drop") && inputArr.includes("key")) {
-        dropItem(diningRoom, "Key")
-        playDining();
-  }  else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
+    takeItem(diningRoom, "Key");
+    playDining();
+  } else if (inputArr.includes("drop") && inputArr.includes("pan")) {
+    dropItem(diningRoom, "Frying Pan");
+    playDining();
+  } else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
+    dropItem(diningRoom, "Notebook");
+    playDining();
+  } else if (inputArr.includes("drop") && inputArr.includes("key")) {
+    dropItem(diningRoom, "Key");
+    playDining();
+  } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
     console.log(kitchenMessage);
     playKitchen();
@@ -663,24 +670,24 @@ async function playLounge() {
     console.log(conservatoryMessage);
     playConservatory();
   } else if (inputArr.includes("take") && inputArr.includes("pan")) {
-      takeItem(lounge, "Frying Pan");
-      playLounge();
-  } else if (inputArr.includes("take") && inputArr.includes("notebook")) {
-      takeItem(lounge, "Notebook");
-      playLounge();
-  } else if (inputArr.includes("take") && inputArr.includes("key")) {
-      takeItem(lounge, "Key");
-      playLounge();
-  }  else if (inputArr.includes("drop") && inputArr.includes("pan")) {
-    dropItem(lounge, "Frying Pan")
+    takeItem(lounge, "Frying Pan");
     playLounge();
-  }  else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
-      dropItem(lounge, "Notebook")
-      playLounge();
-  }  else if (inputArr.includes("drop") && inputArr.includes("key")) {
-      dropItem(lounge, "Key")
-      playLounge();
-  }  else if (inputArr.includes("go") && inputArr.includes("library")) {
+  } else if (inputArr.includes("take") && inputArr.includes("notebook")) {
+    takeItem(lounge, "Notebook");
+    playLounge();
+  } else if (inputArr.includes("take") && inputArr.includes("key")) {
+    takeItem(lounge, "Key");
+    playLounge();
+  } else if (inputArr.includes("drop") && inputArr.includes("pan")) {
+    dropItem(lounge, "Frying Pan");
+    playLounge();
+  } else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
+    dropItem(lounge, "Notebook");
+    playLounge();
+  } else if (inputArr.includes("drop") && inputArr.includes("key")) {
+    dropItem(lounge, "Key");
+    playLounge();
+  } else if (inputArr.includes("go") && inputArr.includes("library")) {
     player.location = "The Library";
     console.log(libraryMessage);
     playLibrary();
@@ -709,7 +716,7 @@ async function playConservatory() {
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("use") && inputArr.includes("key")) {
-    if (player.inventory.includes("A key")) {
+    if (player.inventory.includes("Key")) {
       console.log(
         "\nYou open the cabinet to reveal a collection of stolen artwork and a billiard ball covered in blood. You pick up the billiard ball. You now have the evidence you need to solve the murder."
       );
@@ -758,14 +765,14 @@ async function playConservatory() {
   } else if (inputArr.includes("take") && inputArr.includes("key")) {
     takeItem(conservatory, "Key");
     playConservatory();
-  } else if (inputArr.includes("drop")  && inputArr.includes("pan")) {
-    dropItem(conservatory, "Frying Pan")
+  } else if (inputArr.includes("drop") && inputArr.includes("pan")) {
+    dropItem(conservatory, "Frying Pan");
     playConservatory();
   } else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
-    dropItem(conservatory, "Notebook")
+    dropItem(conservatory, "Notebook");
     playConservatory();
   } else if (inputArr.includes("drop") && inputArr.includes("key")) {
-    dropItem(conservatory, "Key")
+    dropItem(conservatory, "Key");
     playConservatory();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
@@ -846,8 +853,7 @@ async function playBallroom() {
     player.location = "The Conservatory";
     console.log(conservatoryMessage);
     playConservatory();
-  } 
-  else if (inputArr.includes("take") && inputArr.includes("pan")) {
+  } else if (inputArr.includes("take") && inputArr.includes("pan")) {
     takeItem(ballroom, "Frying Pan");
     playBallroom();
   } else if (inputArr.includes("take") && inputArr.includes("notebook")) {
@@ -856,14 +862,14 @@ async function playBallroom() {
   } else if (inputArr.includes("take") && inputArr.includes("key")) {
     takeItem(ballroom, "Key");
     playBallroom();
-  }  else if (inputArr.includes("drop") && inputArr.includes("pan")) {
-    dropItem(ballroom, "Frying Pan")
+  } else if (inputArr.includes("drop") && inputArr.includes("pan")) {
+    dropItem(ballroom, "Frying Pan");
     playBallroom();
-  }  else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
-    dropItem(ballroom, "Notebook")
+  } else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
+    dropItem(ballroom, "Notebook");
     playBallroom();
-  }  else if (inputArr.includes("drop") && inputArr.includes("key")) {
-    dropItem(ballroom, "Key")
+  } else if (inputArr.includes("drop") && inputArr.includes("key")) {
+    dropItem(ballroom, "Key");
     playBallroom();
   } else {
     console.log(
@@ -928,14 +934,14 @@ async function playLibrary() {
   } else if (inputArr.includes("take") && inputArr.includes("key")) {
     takeItem(library, "Key");
     playLibrary();
-  } else if (inputArr.includes("drop")&& inputArr.includes("pan")) {
-    dropItem(library, "Frying Pan")
+  } else if (inputArr.includes("drop") && inputArr.includes("pan")) {
+    dropItem(library, "Frying Pan");
     playLibrary();
-  } else if (inputArr.includes("drop")&& inputArr.includes("notebook")) {
-    dropItem(library, "Notebook")
+  } else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
+    dropItem(library, "Notebook");
     playLibrary();
-  } else if (inputArr.includes("drop")&& inputArr.includes("key")) {
-    dropItem(library, "Key")
+  } else if (inputArr.includes("drop") && inputArr.includes("key")) {
+    dropItem(library, "Key");
     playLibrary();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
@@ -996,13 +1002,13 @@ async function playStudy() {
     takeItem(study, "Key");
     playStudy();
   } else if (inputArr.includes("drop") && inputArr.includes("pan")) {
-    dropItem(study, "Frying Pan")
+    dropItem(study, "Frying Pan");
     playStudy();
   } else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
-    dropItem(study, "Notebook")
+    dropItem(study, "Notebook");
     playStudy();
   } else if (inputArr.includes("drop") && inputArr.includes("key")) {
-    dropItem(study, "Key")
+    dropItem(study, "Key");
     playStudy();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
@@ -1071,13 +1077,13 @@ async function playBilliardRoom() {
     takeItem(billiardRoom, "Key");
     playBilliardRoom();
   } else if (inputArr.includes("drop") && inputArr.includes("pan")) {
-    dropItem(billiardRoom, "Frying Pan")
+    dropItem(billiardRoom, "Frying Pan");
     playBilliardRoom();
   } else if (inputArr.includes("drop") && inputArr.includes("notebook")) {
-    dropItem(billiardRoom, "Notebook")
+    dropItem(billiardRoom, "Notebook");
     playBilliardRoom();
   } else if (inputArr.includes("drop") && inputArr.includes("key")) {
-    dropItem(billiardRoom, "Key")
+    dropItem(billiardRoom, "Key");
     playBilliardRoom();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
