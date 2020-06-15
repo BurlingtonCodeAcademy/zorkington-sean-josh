@@ -362,7 +362,7 @@ mustard.dialogOne = `\nHello, inspector. I trust the investigation is going well
 
 peacock.dialogOne = `\nWhat an absolutely dreadful night it has turned out to be. It was such a lovely evening up until the murder. Mr. Body, that poor soul. I never could quite get a read on him. He seemed to be pre-occupied looking around the house. I suspect he was an admirer of art. He seemed to be closely inspecting Mr. Green's artwork. Professor Plum may be able to give you more about the deceased. I saw the two of them speaking earlier in the evening. He is in the library.`
 
-plum.dialogueOne = `\nAh, inspector! I've been meaning to speak to you. Quite horrible, the recent events, quite horrible indeed! I've been collecting my thoughts here and trying to regain some sense of composure. The books, they always calm me down! And well, as I've been turning the last few hours over in my head, it did occur to me that I was witness to something that may be of interest to you. You see, earlier in the evening I was relaxing in a nook of the library, my attention captured entirely by a lovely collection of English Romantic poetry. I must have been decently obscured from my position, because at one point Mr. Green and Mr. Body passed through and I don't believe that they noticed I was here! They were in the midst of a dispute, and though they spoke in hushed voices I could tell from their tones that something was wrong. I couldn't clearly make out much of what they were saying at all, but I believe the argument had something to do with art. Eventually the conversation came to a close, and Mr. Green left the room. Then, I saw Mr. Body pull out a notebook from his back pocket and begin writing in it furiously. Oh, I'm so embarrassed for spying, but I worried that it would stir up trouble if I revealed that I overheard them. Furthermore whatever they were arguing about was not something I wanted to involve myself in. In any event, I suspect that the notebook Mr. Body was writing in may hold some clues as to the nature of their conversation, so it may be worth your while to see if you can find it. That's all the information I have for you, though I wish I could be of greater help!`;
+plum.dialogueOne = `\nAh, inspector! I've been meaning to speak to you. Quite horrible, the recent events, quite horrible indeed! I've been collecting my thoughts here and trying to regain some sense of composure. The books, they always calm me down! And well, as I've been turning the last few hours over in my head, it did occur to me that I have borne witness to something that may be of interest to you. You see, earlier in the evening I was relaxing in a nook of the library, my attention captured completely by a lovely collection of English Romantic poetry. I must have been decently obscured from my position in the nook, because at one point Mr. Green and Mr. Body passed through and did not notice that I was here! They were in the midst of a dispute, and though they spoke in hushed voices I could tell from their tones that something was wrong. I could not clearly make out much of what they were saying, but I believe the argument had something to do with art. Eventually the conversation came to a close and Mr. Green left the room, after which Mr. Body pull out a notebook from his back pocket and begin writing in it furiously. Oh, I'm so embarrassed for spying, but I worried that it would stir up trouble if I revealed my presence. I certainly did not want to involve myself in whatever they were arguing about, either.\nIn any event, I suspect that the notebook Mr. Body was writing in may hold some clues as to the nature of their conversation, so it may be worth your while to see if you can find it. That's all the information I have for you, though I wish I could be of greater help!`;
 
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -426,9 +426,32 @@ async function playKitchen() {
       playKitchen();
     }
   } else if (inputArr.includes("drop") || inputArr.includes("pan")) {
-    player.inventory = player.inventory.indexOf("Frying Pan").splice;
-    console.log("\nYou have dropped the frying pan.");
+    if (player.inventory.includes("Frying Pan")) {
+      player.inventory = player.inventory.indexOf("Frying Pan").splice;
+      kitchen.inventory.push("Frying Pan");
+      console.log("\nYou have dropped the frying pan.");
+    } else {
+        console.log('You are not currently carrying this item');
+    }
     playKitchen();
+  }  else if (inputArr.includes("drop") || inputArr.includes("notebook")) {
+      if (player.inventory.includes("Notebook")) {
+        player.inventory = player.inventory.indexOf("Notebook").splice;
+        kitchen.inventory.push("Notebook");
+        console.log("\nYou have dropped the notebook.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playKitchen();
+  }  else if (inputArr.includes("drop") || inputArr.includes("key")) {
+      if (player.inventory.includes("Key")) {
+        player.inventory = player.inventory.indexOf("Key").splice;
+        kitchen.inventory.push("Key");
+        console.log("\nYou have dropped the key.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playKitchen();
   } else if (inputArr.includes("go") && inputArr.includes("dining")) {
     player.location = "The Dining Room";
     console.log(diningMessage);
@@ -486,7 +509,34 @@ async function playDining() {
   } else if (inputArr.includes("sit") && inputArr.includes("chair")) {
     diningChair.action();
     playDining();
-  } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
+  } else if (inputArr.includes("drop") || inputArr.includes("pan")) {
+    if (player.inventory.includes("Frying Pan")) {
+      player.inventory = player.inventory.indexOf("Frying Pan").splice;
+      diningRoom.inventory.push("Frying Pan");
+      console.log("\nYou have dropped the frying pan.");
+    } else {
+        console.log('You are not currently carrying this item');
+    }
+    playDining();
+  }  else if (inputArr.includes("drop") || inputArr.includes("notebook")) {
+      if (player.inventory.includes("Notebook")) {
+        player.inventory = player.inventory.indexOf("Notebook").splice;
+        diningRoom.inventory.push("Notebook");
+        console.log("\nYou have dropped the notebook.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playDining();
+  }  else if (inputArr.includes("drop") || inputArr.includes("key")) {
+      if (player.inventory.includes("Key")) {
+        player.inventory = player.inventory.indexOf("Key").splice;
+        diningRoom.inventory.push("Key");
+        console.log("\nYou have dropped the key.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playDining();
+  }  else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
     console.log(kitchenMessage);
     playKitchen();
@@ -551,7 +601,34 @@ async function playLounge() {
     player.location = "The Conservatory";
     console.log(conservatoryMessage);
     playConservatory();
-  } else if (inputArr.includes("go") && inputArr.includes("library")) {
+  } else if (inputArr.includes("drop") || inputArr.includes("pan")) {
+    if (player.inventory.includes("Frying Pan")) {
+      player.inventory = player.inventory.indexOf("Frying Pan").splice;
+      lounge.inventory.push("Frying Pan");
+      console.log("\nYou have dropped the frying pan.");
+    } else {
+        console.log('You are not currently carrying this item');
+    }
+    playLounge();
+  }  else if (inputArr.includes("drop") || inputArr.includes("notebook")) {
+      if (player.inventory.includes("Notebook")) {
+        player.inventory = player.inventory.indexOf("Notebook").splice;
+        lounge.inventory.push("Notebook");
+        console.log("\nYou have dropped the notebook.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playLounge();
+  }  else if (inputArr.includes("drop") || inputArr.includes("key")) {
+      if (player.inventory.includes("Key")) {
+        player.inventory = player.inventory.indexOf("Key").splice;
+        lounge.inventory.push("Key");
+        console.log("\nYou have dropped the key.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playLounge();
+  }  else if (inputArr.includes("go") && inputArr.includes("library")) {
     player.location = "The Library";
     console.log(libraryMessage);
     playLibrary();
@@ -616,6 +693,33 @@ async function playConservatory() {
   } else if (inputArr.includes("examine") && inputArr.includes("cabinet")) {
       console.log(cabinet.action());
       playConservatory();
+  }  else if (inputArr.includes("drop") || inputArr.includes("pan")) {
+    if (player.inventory.includes("Frying Pan")) {
+      player.inventory = player.inventory.indexOf("Frying Pan").splice;
+      conservatory.inventory.push("Frying Pan");
+      console.log("\nYou have dropped the frying pan.");
+    } else {
+        console.log('You are not currently carrying this item');
+    }
+    playConservatory();
+  }  else if (inputArr.includes("drop") || inputArr.includes("notebook")) {
+      if (player.inventory.includes("Notebook")) {
+        player.inventory = player.inventory.indexOf("Notebook").splice;
+        conservatory.inventory.push("Notebook");
+        console.log("\nYou have dropped the notebook.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playConservatory();
+  }  else if (inputArr.includes("drop") || inputArr.includes("key")) {
+      if (player.inventory.includes("Key")) {
+        player.inventory = player.inventory.indexOf("Key").splice;
+        conservatory.inventory.push("Key");
+        console.log("\nYou have dropped the key.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playConservatory();
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
     player.location = "The Kitchen";
     console.log(kitchenMessage);
@@ -652,6 +756,34 @@ async function playBallroom() {
   let inputArr = input.toLowerCase().split(" ");
 
   if (inputArr.includes("speak") && inputArr.includes("")) {
+  }
+  else if (inputArr.includes("drop") || inputArr.includes("pan")) {
+    if (player.inventory.includes("Frying Pan")) {
+      player.inventory = player.inventory.indexOf("Frying Pan").splice;
+      ballroom.inventory.push("Frying Pan");
+      console.log("\nYou have dropped the frying pan.");
+    } else {
+        console.log('You are not currently carrying this item');
+    }
+    playBallroom();
+  }  else if (inputArr.includes("drop") || inputArr.includes("notebook")) {
+      if (player.inventory.includes("Notebook")) {
+        player.inventory = player.inventory.indexOf("Notebook").splice;
+        ballroom.inventory.push("Notebook");
+        console.log("\nYou have dropped the notebook.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playBallroom();
+  }  else if (inputArr.includes("drop") || inputArr.includes("key")) {
+      if (player.inventory.includes("Key")) {
+        player.inventory = player.inventory.indexOf("Key").splice;
+        ballroom.inventory.push("Key");
+        console.log("\nYou have dropped the key.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playBallroom();
   }
 }
 
@@ -695,19 +827,38 @@ async function playLibrary() {
   else if (inputArr.includes("use") && inputArr.includes("sofa")) {
     console.log(libSofa.action);
     playLibrary();
-  } 
+  } else if (inputArr.includes("drop") || inputArr.includes("pan")) {
+    if (player.inventory.includes("Frying Pan")) {
+      player.inventory = player.inventory.indexOf("Frying Pan").splice;
+      library.inventory.push("Frying Pan");
+      console.log("\nYou have dropped the frying pan.");
+    } else {
+        console.log('You are not currently carrying this item');
+    }
+    playLibrary();
+  }  else if (inputArr.includes("drop") || inputArr.includes("notebook")) {
+      if (player.inventory.includes("Notebook")) {
+        player.inventory = player.inventory.indexOf("Notebook").splice;
+        library.inventory.push("Notebook");
+        console.log("\nYou have dropped the notebook.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playLibrary();
+  }  else if (inputArr.includes("drop") || inputArr.includes("key")) {
+      if (player.inventory.includes("Key")) {
+        player.inventory = player.inventory.indexOf("Key").splice;
+        library.inventory.push("Key");
+        console.log("\nYou have dropped the key.");
+      } else {
+        console.log('You are not currently carrying this item');
+      }
+      playLibrary();
+  }
   else {
     console.log(
       `\nI don't understand what you want and/or you can't do that in this room...`
     );
-  }
-}
-
-async function playHall() {
-  let input = await ask(">_ ");
-  let inputArr = input.toLowerCase().split(" ");
-
-  if (inputArr.includes("speak") && inputArr.includes("")) {
   }
 }
 
