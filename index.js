@@ -148,7 +148,7 @@ let deadBody = new Item(
   false,
   () => {
     console.log(
-      `\nYou roll over the body to find a note pad partially sticking out of Mr. Body's back pocket...`
+      `\nYou roll over the body to find a notebook partially sticking out of Mr. Body's back pocket...`
     );
     player.hasMoved = true;
     kitchen.inventory.push("Notebook");
@@ -427,22 +427,16 @@ function takeItem(room, item) {
 
 function dropItem(room, item) {
   if (player.inventory.includes(item)) {
-<<<<<<< HEAD
-    let droppedItem = player.inventory.indexOf(item).splice;
-    room.inventory.push(droppedItem);
-    return console.log(`\nYou have dropped ${item}`)
-=======
     player.inventory.splice(player.inventory.indexOf(item), 1);
     room.inventory.push(item);
     console.log(`\nYou have dropped ${item}`);
->>>>>>> e6a2df4fe81f491e928a11ea6dbc7ecadc87514a
   } else {
     return console.log("You are not currently carrying this item")
   }
 }
 
 async function start() {
-  const welcomeMessage = `\nWelcome to our Murder Mystery! You are an inspector tasked with solving a murder that occured at a dinner party. The actions you may need to take are: (examine), (move), (speak), (take), (drop), (use), (go), (i)nventory and (solve). If you would like an overview of the room you are in, use the (look around) command.`;
+  const welcomeMessage = `\nWelcome to our Murder Mystery! You are an inspector tasked with solving a murder that occured at a dinner party. The actions you may need to take are: (examine 'item') to look at item, there might be something you have to (move 'item') to reveal a new item, (speak to 'character name') to engage with a character, (take 'item') to take posession of an item, (drop 'item') to drop an item, (use 'item') to use an item, (go to 'room name') to move around the map, (i)nventory and (solve murder) when you have all the evidence you need! If you would like an overview of the room you are in, use the (look around) command and it will give you the room's description and a list of its contents.`;
 
   console.log(welcomeMessage);
   let getName = await ask(`\nWhat is your name, Inspector? >_`);
@@ -499,7 +493,7 @@ async function playKitchen() {
     if (player.hasMoved === true) {
       takeItem(kitchen, "Notebook");
     } else {
-      console.log("There is no notebook to be seen.");
+      console.log("\nThere is no notebook to be seen.");
     }
     playKitchen();
   } else if (inputArr.includes("examine") && inputArr.includes("notebook")) {
@@ -507,7 +501,7 @@ async function playKitchen() {
       console.log(notebook.desc);
       playKitchen();
     } else {
-      console.log("You are not in possesion of a notebook.");
+      console.log("\nYou are not in possesion of a notebook.");
       playKitchen();
     }
   } else if (inputArr.includes("take") && inputArr.includes("key")) {
