@@ -417,7 +417,7 @@ white.dialogueOne = `\nInspector, please tell me you'll get to the bottom of all
 //////////////////////////////////////////////////////////////////////////////////////////////////
 function takeItem(room, item) {
   if (room.inventory.includes(item)) {
-    let takenItem = room.inventory.splice(room.inventory.indexOf(item), 1)
+    room.inventory = room.inventory.splice(room.inventory.indexOf(item), 1)
     player.inventory.push(item);
     console.log(`\nYou have picked up a ${item}`)
   } else {
@@ -427,9 +427,9 @@ function takeItem(room, item) {
 
 function dropItem(room, item) {
   if (player.inventory.includes(item)) {
-    player.inventory.splice(player.inventory.indexOf(item), 1);
+    player.inventory = player.inventory.indexOf(item).splice;
     room.inventory.push(item);
-    console.log(`\nYou have dropped ${item}`);
+    return console.log(`\nYou have dropped ${item}`)
   } else {
     return console.log("You are not currently carrying this item")
   }
@@ -462,7 +462,6 @@ async function start() {
       theTask();
     }
   }
-  
 }
 
 async function playKitchen() {
