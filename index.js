@@ -197,7 +197,7 @@ let orangeTree = new Item("Orange tree", "An orange tree", false, () => {
   console.log(
     "\nLooking both ways to make sure you aren't being watched, you determine you are alone. You pluck an orange, and damn - this is one seriously fresh orange! Minutes later, and you've finished the whole thing. But where to discard the peel? As you look around for a waste bin you notice something shiny. It appears to be a key."
   );
-  conservatory.inventory.push("Key");
+  conservatory.inventory.push("key");
 });
 
 let bambooPalm = new Item("bamboo palm", "A bamboo palm", false, () => {
@@ -612,7 +612,7 @@ async function play() {
   } else if (inputArr.includes("use") && inputArr.includes("key") && player.location === conservatory) {
     if (player.inventory.includes("key")) {
       console.log(
-        "\nYou open the cabinet to reveal a collection of stolen artwork and a billiard ball covered in blood. You pick up the billiard ball. You now have the evidence you need to solve the murder."
+        "\nYou open the cabinet to reveal a collection of stolen artwork and a billiard ball covered in blood. You pick up the billiard ball. You now have the evidence you need to (solve the murder)."
       );
       player.inventory.push("A bloody billiard ball");
       play();
