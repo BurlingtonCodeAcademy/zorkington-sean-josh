@@ -299,67 +299,75 @@ let poolCue = new Item(
   }
 );
 
-let roomFactory = (name, desc, inventory, entry) => {
-  return { name, desc, inventory, entry };
+let roomFactory = (name, desc, inventory, entry, connected) => {
+  return { name, desc, inventory, entry, connected };
 };
 
 let kitchen = roomFactory(
   "kitchen",
   "\nYou see a beautiful kitchen with many appliances including a nice stove. You can see that the kitchen connects to the Dining Room, the Conservatory, the Library and the Study.",
   ["body", "stove", "frying pan"],
-  "\nYou have entered the Kitchen."
+  "\nYou have entered the Kitchen.",
+  ["dining room", "study", "conservatory", "library"]
 );
 
 let study = roomFactory(
   "study",
   "\nYou see a beautiful mahogany-lined room with a couch upon which Mr. Green and Mrs. White currently sit. You can see that the Study is connected to the Kitchen, the Billiard room and the Library.",
   ["desk", "study couch", "study chair"],
-  "\nYou have entered the Study."
+  "\nYou have entered the Study.",
+  ["kitchen", "billiard room"]
 );
 
 let diningRoom = roomFactory(
   "dining room",
   "\nYou see a large Dining Room with a table and chairs, two of which contain Miss Scarlet and the cook. You can see that the Dining room is connected to the Kitchen, the Billiard room and the Lounge.",
   ["dining table", "dining chair"],
-  "\nYou have entered the Dining Room."
+  "\nYou have entered the Dining Room.",
+  ["billiard room", "lounge"]
 );
 
 let billiardRoom = roomFactory(
   "billiard room",
   "\nYou see a rich mahogany room with a billiard table at the center. You can see that the Billiard room is connected to the Dining room and the Study.",
   ["billiard table", "billiard balls", "pool cue"],
-  "\nYou have entered the Billiard Room."
+  "\nYou have entered the Billiard Room.",
+  ["study", "dining room"]
 );
 
 let lounge = roomFactory(
   "lounge",
   "\nYou see a beautifully decorated room with a bar cart, a chair and a couch upon which Colonel Mustard and Mrs. Peacock sit. You can see that the Lounge is connected to the Conservatory and the Dining room.",
   ["chaise lounge", "lounge chair", "bar cart"],
-  "\nYou have entered the Lounge."
+  "\nYou have entered the Lounge.",
+  ["dining room", "conservatory"]
 );
 
 let conservatory = roomFactory(
   "conservatory",
   "\nYou see a beautiful conservatory filled with lots of plants and flowers. There is an orange tree, a bamboo palm and a spider plant. There is also a large cabinet in the far corner. You can see that the Conservatory is connected to the Lounge and the Ballroom.",
   ["orange tree", "bamboo palm", "spider plant", "large cabinet"],
-  "\nYou have entered the Conservatory."
+  "\nYou have entered the Conservatory.",
+  ["lounge", "kitchen", "ballroom"]
 );
 
 let ballroom = roomFactory(
   "ballroom",
   "\nYou see an expansive ballroom with a parquet floor and a large chandelier hanging in the center. You can see that the Ballroom is connected to the Conservatory and the Library.",
   ["chandelier", "ballroom table", "column"],
-  "\nYou have entered the Ballroom."
+  "\nYou have entered the Ballroom.",
+  ["conservatory", "library"]
 );
 
 let library = roomFactory(
   "library",
   "\nYou see a large library with many books on the shelf. The room is dark, save for the light from the crackling fireplace. Nothing much else of interests it seems. Professor Plum sits on the sofa with a pipe in his mouth and a book opened on his lap.",
   ["bookshelf", "fireplace", "sofa"],
-  "\nYou have entered the Library."
+  "\nYou have entered the Library.",
+  ["kitchen", "ballroom"]
 );
 
-// Lookup Tables ////////////////////////////////////////////////////////////////////////
+// Lookup Tables & State Machine////////////////////////////////////////////////////////////////////////
 const itemLookUp = {
   "frying pan": fryingPan,
   body: body,
@@ -399,8 +407,12 @@ const roomLookUp = {
   conservatory: conservatory,
 };
 
+
+
 // Beginning of function declarations ////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 function takeItem(room, item) {
   if (room.inventory.includes(item)) {
     player.inventory.push(item);
@@ -525,37 +537,77 @@ async function play() {
     dropItem(player.location, "key");
     play();
   } else if (inputArr.includes("go") && inputArr.includes("dining")) {
-    player.location = diningRoom;
-    console.log(diningRoom.entry);
-    play();
+      if (player.location.connected.includes("dining room")) {
+        player.location = diningRoom;
+        console.log(diningRoom.entry);
+        play();
+      } else {
+        console.log("\nThat room is not connected to your current location! (Look around) to get your bearings!")
+        play();
+       } 
   } else if (inputArr.includes("go") && inputArr.includes("conservatory")) {
-    player.location = conservatory;
-    console.log(conservatory.entry);
-    play();
+      if (player.location.connected.includes("conservatory")) {
+      player.location = conservatory;
+      console.log(conservatory.entry);
+      play();
+    } else {
+      console.log("\nThat room is not connected to your current location! (Look around) to get your bearings!")
+      play();
+     } 
   } else if (inputArr.includes("go") && inputArr.includes("library")) {
-    player.location = library;
-    console.log(library.entry);
-    play();
+      if (player.location.connected.includes("library")) {
+      player.location = library;
+      console.log(library.entry);
+      play();
+    } else {
+      console.log("\nThat room is not connected to your current location! (Look around) to get your bearings!")
+      play();
+     } 
   } else if (inputArr.includes("go") && inputArr.includes("study")) {
-    player.location = study;
-    console.log(study.entry);
-    play();
+      if (player.location.connected.includes("study")) {
+      player.location = study;
+      console.log(study.entry);
+      play();
+    } else {
+      console.log("\nThat room is not connected to your current location! (Look around) to get your bearings!")
+      play();
+     } 
   } else if (inputArr.includes("go") && inputArr.includes("lounge")) {
-    player.location = lounge;
-    console.log(lounge.entry);
-    play();
+      if (player.location.connected.includes("lounge")) {
+      player.location = lounge;
+      console.log(lounge.entry);
+      play();
+    } else {
+      console.log("\nThat room is not connected to your current location! (Look around) to get your bearings!")
+      play();
+     } 
   } else if (inputArr.includes("go") && inputArr.includes("billiard")) {
-    player.location = billiardRoom;
-    console.log(billiardRoom.entry);
-    play();
+      if (player.location.connected.includes("billiard room")) {
+      player.location = billiardRoom;
+      console.log(billiardRoom.entry);
+      play();
+    } else {
+      console.log("\nThat room is not connected to your current location! (Look around) to get your bearings!")
+      play();
+     } 
   } else if (inputArr.includes("go") && inputArr.includes("ballroom")) {
-    player.location = ballroom;
-    console.log(ballroom.entry);
-    play();
+      if (player.location.connected.includes("ballroom")) {
+      player.location = ballroom;
+      console.log(ballroom.entry);
+      play();
+    } else {
+      console.log("\nThat room is not connected to your current location! (Look around) to get your bearings!")
+      play();
+     } 
   } else if (inputArr.includes("go") && inputArr.includes("kitchen")) {
-    player.location = kitchen;
-    console.log(kitchen.entry);
-    play();
+      if (player.location.connected.includes("kitchen")) {
+      player.location = kitchen;
+      console.log(kitchen.entry);
+      play();
+    } else {
+      console.log("\nThat room is not connected to your current location! (Look around) to get your bearings!")
+      play();
+     } 
   } else if (inputArr.includes("look") && inputArr.includes("around")) {
     console.log(
       player.location.desc + "\n\nItems include: " + player.location.inventory
